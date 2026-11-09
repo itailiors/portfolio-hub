@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/sections/Nav.astro";
+import Hero from "../components/sections/Hero.astro";
+import SectionHeader from "../components/sections/SectionHeader.astro";
+import Experience from "../components/sections/Experience.astro";
+import CreativeLab from "../components/sections/CreativeLab.astro";
+import Hire from "../components/sections/Hire.astro";
+import ProductShowcase from "../components/ProductShowcase";
+import DrawerPreview from "../components/DrawerPreview";
+import ecosystemJson from "../../public/ecosystem.json";
+import type { EcosystemManifest } from "../types/ecosystem";
+
+// Single source of truth: the same file external apps fetch at /ecosystem.json
+const ecosystem = ecosystemJson as EcosystemManifest;
+---
+
+<Layout>
+  <Nav />
+  <main>
+    <Hero />
+
+    <section id="products" class="relative py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <SectionHeader
+          eyebrow="Product ecosystem"
+          title="Things I've shipped (and am shipping)."
+          subtitle="Flip to ⚙️ Under the Hood to see how each one is built — or try them as a user first."
+        />
+        <div class="mt-10">
+          <ProductShowcase client:load manifest={ecosystem} />
+        </div>
+      </div>
+    </section>
+
+    <Experience />
+    <CreativeLab />
+
+    <section id="widget" class="relative py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <SectionHeader
+          eyebrow="Drop-in widget"
+          title="One manifest. Every app cross-promotes the rest."
+          subtitle="This is the exact “More tools by me” drawer embedded in my Chrome extension and mobile app — a portable React component fed by a public JSON manifest."
+        />
+        <div class="mt-12">
+          <DrawerPreview client:visible manifest={ecosystem} />
+        </div>
+      </div>
+    </section>
+
+    <Hire />
+  </main>
+</Layout>

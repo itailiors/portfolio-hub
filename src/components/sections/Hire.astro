@@ -1,0 +1,62 @@
+---
+import profile from "../../data/profile.json";
+
+const { contact } = profile;
+const socials = [
+  { label: "GitHub", href: contact.github },
+  { label: "LinkedIn", href: contact.linkedin },
+  { label: "itch.io", href: contact.itch },
+  { label: "YouTube", href: contact.youtube },
+].filter((s) => s.href);
+const bookHref = contact.calendly || `mailto:${contact.email}?subject=Project%20inquiry`;
+---
+
+<section id="hire" class="relative py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="glass relative overflow-hidden rounded-3xl px-6 py-14 text-center sm:px-12">
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background: radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.25), transparent 60%), radial-gradient(ellipse at 50% 100%, rgba(52,211,153,0.12), transparent 60%);"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="relative">
+        <p class="eyebrow">Remote contracts · MVPs · Extensions</p>
+        <h2 class="mx-auto mt-4 max-w-2xl text-3xl font-semibold tracking-tight sm:text-5xl">Have a product to ship? Let's build it.</h2>
+        <p class="mx-auto mt-4 max-w-xl text-fg-muted">
+          Tell me what you're building and where you're stuck. I usually reply within 24 hours with a scope, a timeline and a fixed quote.
+        </p>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <a
+            href={bookHref}
+            class="inline-flex items-center justify-center gap-2 rounded-full bg-fg px-6 py-3 text-sm font-semibold text-ink-950 transition hover:bg-white"
+          >
+            {contact.calendly ? "Book a 20-min intro call" : "Email me about a project"} →
+          </a>
+          <a
+            href={`mailto:${contact.email}`}
+            class="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 font-mono text-sm text-fg-muted transition hover:border-white/30 hover:text-fg"
+          >
+            {contact.email}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-sm text-fg-subtle sm:flex-row">
+      <p>© {new Date().getFullYear()} {profile.name} · Indie product studio</p>
+      <ul class="flex flex-wrap gap-5">
+        {
+          socials.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener noreferrer" class="transition hover:text-fg">
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+        <li><a href="/ecosystem.json" class="font-mono transition hover:text-fg">ecosystem.json</a></li>
+      </ul>
+    </footer>
+  </div>
+</section>

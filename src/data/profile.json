@@ -1,0 +1,110 @@
+{
+  "name": "Itai Lior",
+  "headline": "Full-Stack Product Engineer & Indie Maker",
+  "positioning": "I architect scalable backends and ship polished web, mobile, and browser products.",
+  "location": "Israel · Remote-friendly (EU / US overlap)",
+  "availability": "Open to remote contracts & MVP builds",
+  "contact": {
+    "email": "hello@example.com",
+    "github": "https://github.com/",
+    "linkedin": "https://www.linkedin.com/",
+    "itch": "https://itch.io/",
+    "youtube": "https://www.youtube.com/",
+    "calendly": ""
+  },
+  "credibility": [
+    "Ex-eBay (Backend)",
+    "Angor.io (Web3/Open-Source)",
+    "3 Yrs Military Full-Stack & Automation",
+    "Coding since Middle School"
+  ],
+  "experience": [
+    {
+      "id": "ebay",
+      "company": "eBay",
+      "role": "Backend Engineer",
+      "period": "YYYY – YYYY",
+      "location": "TODO",
+      "summary": "TODO: paste a one-line summary of your eBay role.",
+      "highlights": [
+        "TODO: high-scale service / API you owned",
+        "TODO: measurable impact (latency, throughput, cost, reliability)",
+        "TODO: notable cross-team or on-call ownership"
+      ],
+      "stack": ["Java", "Microservices", "TODO"]
+    },
+    {
+      "id": "angor",
+      "company": "Angor.io",
+      "role": "Backend Engineer",
+      "period": "YYYY – YYYY",
+      "location": "Remote",
+      "summary": "Backend engineering at an open-source, Bitcoin-based decentralized crowdfunding startup.",
+      "highlights": [
+        "TODO: protocol / backend work you shipped",
+        "TODO: open-source contributions & PRs",
+        "TODO: impact"
+      ],
+      "stack": ["C#", ".NET", "Bitcoin", "Nostr", "TODO"]
+    },
+    {
+      "id": "military",
+      "company": "Military Service",
+      "role": "Full-Stack & Automation Developer",
+      "period": "3 years",
+      "location": "Israel",
+      "summary": "Built and maintained internal full-stack systems and automation tooling for operational units.",
+      "highlights": [
+        "TODO: internal platform you built end-to-end",
+        "TODO: automation that saved X hours / week",
+        "TODO: users served / scale"
+      ],
+      "stack": ["TypeScript", "React", "Node.js", "Python", "TODO"]
+    }
+  ],
+  "education": [
+    {
+      "id": "cs",
+      "institution": "TODO: University",
+      "degree": "B.Sc. Computer Science",
+      "period": "YYYY – YYYY",
+      "notes": "TODO: relevant courses, GPA, projects"
+    }
+  ],
+  "services": [
+    {
+      "id": "backend",
+      "icon": "server",
+      "title": "High-Scale Backend & APIs",
+      "description": "Production-grade services, data models and integrations — designed the way they're built at eBay: observable, tested and ready for real traffic.",
+      "deliverables": ["REST / GraphQL APIs", "Data modeling & migrations", "Queues, caching & performance tuning", "CI/CD & cloud deployment"]
+    },
+    {
+      "id": "mvp",
+      "icon": "rocket",
+      "title": "End-to-End Mobile & Web MVPs",
+      "description": "From idea to app-store-ready product. One engineer owning frontend, backend and infra means fewer handoffs and a faster path to your first users.",
+      "deliverables": ["React / Next / Astro web apps", "React Native (Expo) apps", "Auth, payments & analytics", "Launch-ready in weeks"]
+    },
+    {
+      "id": "extensions",
+      "icon": "puzzle",
+      "title": "Custom Browser Extensions & Automation",
+      "description": "Chrome extensions, scrapers and workflow bots that bend existing websites to your team's needs — the same craft behind HeatReel.",
+      "deliverables": ["Chrome / Firefox MV3 extensions", "DOM automation & data extraction", "Internal tooling & bots", "Store publishing & updates"]
+    }
+  ],
+  "creative": {
+    "bio": "When I'm not shipping code I'm making noise: classically-rooted piano, groove-first drums and campfire guitar. Game jams are where the two worlds meet — 48 hours, a theme, and no excuses.",
+    "instruments": [
+      { "id": "piano", "name": "Piano", "emoji": "🎹", "youtubeId": "", "caption": "TODO: piece / cover title" },
+      { "id": "drums", "name": "Drums", "emoji": "🥁", "youtubeId": "", "caption": "TODO: drum cover title" },
+      { "id": "guitar", "name": "Guitar", "emoji": "🎸", "youtubeId": "", "caption": "TODO: guitar session title" }
+    ],
+    "gameJams": [
+      { "id": "jam-1", "title": "TODO: Jam Game #1", "jam": "Global Game Jam", "theme": "TODO", "url": "https://itch.io/", "hours": 48 },
+      { "id": "jam-2", "title": "TODO: Jam Game #2", "jam": "Ludum Dare", "theme": "TODO", "url": "https://itch.io/", "hours": 72 },
+      { "id": "jam-3", "title": "TODO: Jam Game #3", "jam": "GMTK Game Jam", "theme": "TODO", "url": "https://itch.io/", "hours": 48 }
+    ]
+  }
+}

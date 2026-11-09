@@ -1,0 +1,121 @@
+---
+import profile from "../../data/profile.json";
+import ecosystem from "../../../public/ecosystem.json";
+import SectionHeader from "./SectionHeader.astro";
+
+const { creative } = profile;
+const paraglider = ecosystem.products.find((p) => p.id === "paraglider");
+---
+
+<section id="lab" class="relative py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <SectionHeader
+      eyebrow="The Creative Lab"
+      title="Where the side quests live."
+      subtitle="Game jams, music and the experiments that keep the product instincts sharp."
+    />
+
+    <div class="mt-12 grid auto-rows-[minmax(180px,auto)] gap-4 md:grid-cols-6">
+      <!-- Featured game -->
+      <a
+        href={paraglider?.ctaUrl ?? "https://itch.io/"}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="glass glass-hover group relative overflow-hidden rounded-2xl p-6 md:col-span-4 md:row-span-2"
+      >
+        <div
+          class="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover:opacity-90"
+          style="background: radial-gradient(ellipse at 80% 0%, rgba(56,189,248,0.25), transparent 60%), radial-gradient(ellipse at 0% 100%, rgba(167,139,250,0.18), transparent 55%);"
+          aria-hidden="true"
+        >
+        </div>
+        <svg class="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full text-sky-400/20" viewBox="0 0 600 160" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 160 L0 110 L90 60 L160 95 L250 30 L340 90 L420 55 L510 100 L600 70 L600 160 Z" fill="currentColor"></path>
+          <path d="M0 160 L0 130 L120 100 L210 125 L320 85 L430 120 L530 95 L600 115 L600 160 Z" fill="currentColor"></path>
+        </svg>
+        <div class="relative flex h-full flex-col">
+          <span class="font-mono text-xs text-sky-300">FEATURED · {paraglider?.statusBadge}</span>
+          <h3 class="mt-3 text-2xl font-semibold sm:text-3xl">🪂 {paraglider?.name}</h3>
+          <p class="mt-3 max-w-md text-sm leading-relaxed text-fg-muted">{paraglider?.consumerDescription}</p>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            {paraglider?.engineeringSpecs.stack.map((t) => (
+              <span class="rounded-md border border-white/10 bg-ink-950/40 px-2 py-0.5 font-mono text-[11px] text-fg-muted">{t}</span>
+            ))}
+          </div>
+          <span class="mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold">
+            Play on itch.io <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">↗</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Bio -->
+      <div class="glass rounded-2xl p-6 md:col-span-2">
+        <p class="eyebrow">Off the keyboard</p>
+        <p class="mt-3 text-sm leading-relaxed text-fg-muted">{creative.bio}</p>
+      </div>
+
+      <!-- Game jams list -->
+      <div class="glass rounded-2xl p-6 md:col-span-2">
+        <p class="eyebrow">Game Jams</p>
+        <ul class="mt-3 space-y-2">
+          {
+            creative.gameJams.map((g) => (
+              <li>
+                <a
+                  href={g.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-between gap-3 rounded-lg px-2 py-1.5 text-sm transition hover:bg-white/5"
+                >
+                  <span class="min-w-0">
+                    <span class="block truncate font-medium">{g.title}</span>
+                    <span class="block font-mono text-[11px] text-fg-subtle">
+                      {g.jam} · {g.hours}h
+                    </span>
+                  </span>
+                  <span class="text-fg-subtle" aria-hidden="true">
+                    ↗
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Music corner -->
+      {
+        creative.instruments.map((inst) => (
+          <div class="glass glass-hover flex flex-col overflow-hidden rounded-2xl md:col-span-2">
+            {inst.youtubeId ? (
+              <iframe
+                class="aspect-video w-full"
+                src={`https://www.youtube-nocookie.com/embed/${inst.youtubeId}`}
+                title={`${inst.name} — ${inst.caption}`}
+                loading="lazy"
+                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              />
+            ) : (
+              <div class="relative grid aspect-video w-full place-items-center bg-gradient-to-br from-brand/15 via-transparent to-accent/10">
+                <span class="text-4xl" aria-hidden="true">
+                  {inst.emoji}
+                </span>
+                <span class="absolute bottom-2 right-3 font-mono text-[10px] text-fg-subtle">YouTube embed placeholder</span>
+                <span class="absolute left-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-white/10 text-xs" aria-hidden="true">
+                  ▶
+                </span>
+              </div>
+            )}
+            <div class="p-4">
+              <p class="text-sm font-semibold">
+                {inst.emoji} {inst.name}
+              </p>
+              <p class="mt-0.5 text-xs text-fg-subtle">{inst.caption}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+---
+import profile from "../../data/profile.json";
+---
+
+<section id="top" class="relative overflow-hidden pb-20 pt-36 sm:pt-44">
+  <div class="grid-bg pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div
+    class="pointer-events-none absolute left-1/2 top-0 h-[480px] w-[900px] -translate-x-1/2 rounded-full bg-brand-strong/20 blur-[120px]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <a
+      href="#hire"
+      class="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-fg-muted transition hover:border-white/20 hover:text-fg"
+    >
+      <span class="relative flex h-2 w-2">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60"></span>
+        <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+      </span>
+      {profile.availability}
+    </a>
+
+    <h1
+      class="animate-fade-up mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
+      style="animation-delay:80ms"
+    >
+      <span class="text-gradient">{profile.headline}.</span>
+    </h1>
+    <p class="animate-fade-up mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted sm:text-xl" style="animation-delay:160ms">
+      {profile.positioning}
+    </p>
+
+    <div class="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row" style="animation-delay:240ms">
+      <a
+        href="#products"
+        class="group inline-flex items-center justify-center gap-2 rounded-full bg-fg px-6 py-3 text-sm font-semibold text-ink-950 shadow-[0_0_40px_-8px_rgba(167,139,250,0.6)] transition hover:bg-white"
+      >
+        Explore Live Products <span class="transition-transform group-hover:translate-y-0.5" aria-hidden="true">↓</span>
+      </a>
+      <a
+        href="#hire"
+        class="group inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-fg transition hover:border-white/30 hover:bg-white/[0.06]"
+      >
+        Hire Me for Remote Contracts / MVPs <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <ul
+      class="animate-fade-up mt-14 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs text-fg-subtle"
+      style="animation-delay:320ms"
+      aria-label="Credentials"
+    >
+      {
+        profile.credibility.map((c, i) => (
+          <>
+            {i > 0 && (
+              <li aria-hidden="true" class="hidden text-white/20 sm:block">
+                •
+              </li>
+            )}
+            <li class="rounded-md border border-white/[0.07] bg-white/[0.02] px-2.5 py-1 text-fg-muted">{c}</li>
+          </>
+        ))
+      }
+    </ul>
+  </div>
+</section>
