@@ -96,6 +96,14 @@
   ],
   "creative": {
     "bio": "When I'm not shipping code I'm making noise: classically-rooted piano, groove-first drums and campfire guitar. Game jams are where the two worlds meet — 48 hours, a theme, and no excuses.",
+    "venues": {
+      "title": "Two rooms that taught me to listen",
+      "note": "Late nights at North Gate Jazz Co-op in Chiang Mai and the Blue Note shaped how I build: listen first, leave space for the other players, and ship the take even when it isn't perfect.",
+      "places": [
+        { "name": "North Gate Jazz Co-op", "city": "Chiang Mai, Thailand", "detail": "Since 2007" },
+        { "name": "Blue Note Jazz Club", "city": "TODO: city", "detail": "TODO: your Blue Note memory" }
+      ]
+    },
     "instruments": [
       { "id": "piano", "name": "Piano", "emoji": "🎹", "youtubeId": "", "caption": "TODO: piece / cover title" },
       { "id": "drums", "name": "Drums", "emoji": "🥁", "youtubeId": "", "caption": "TODO: drum cover title" },

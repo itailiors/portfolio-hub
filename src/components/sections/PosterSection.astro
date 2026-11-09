@@ -1,0 +1,56 @@
+---
+/**
+ * Poster-style section shell.
+ * Desktop (lg+): a left side rail with vertical outlined lettering (like the
+ * "ANNIVERSARY" rail on the North Gate poster) overlapped by a crimson italic numeral.
+ * Mobile: the rail collapses into a horizontal "01 — LIVE PRODUCTS" label, so there
+ * is never any horizontal overflow.
+ */
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+  number?: string;
+  rail?: string;
+  surface?: "night" | "paper";
+  class?: string;
+}
+const { id, eyebrow, title, subtitle, number, rail, surface = "night", class: className = "" } = Astro.props;
+const paper = surface === "paper";
+---
+
+<section
+  id={id}
+  class:list={[
+    "relative py-20 sm:py-28",
+    paper && "on-paper bg-paper text-paper-ink",
+    className,
+  ]}
+>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:grid lg:grid-cols-[96px_minmax(0,1fr)] lg:gap-10">
+    <aside class="relative hidden lg:block" aria-hidden="true">
+      {
+        rail && (
+          <div class="sticky top-28 flex flex-col items-center">
+            <span class:list={["rail-text text-[88px]", paper && "[-webkit-text-stroke-color:rgb(27_69_150/0.6)]"]}>{rail}</span>
+            {number && <span class="numeral -mt-6 text-[76px]">{number}</span>}
+          </div>
+        )
+      }
+    </aside>
+
+    <div class="min-w-0">
+      <div class="max-w-3xl">
+        <p class="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
+          {number && <span class:list={["font-serif text-base italic normal-case tracking-normal", paper ? "text-cobalt" : "text-crimson", "lg:hidden"]}>{number}</span>}
+          {rail && <span class="lg:hidden">{rail} —</span>}
+          <span>{eyebrow}</span>
+        </p>
+        <h2 class="mt-4 font-display text-5xl leading-[0.92] tracking-wide sm:text-6xl lg:text-7xl">{title}</h2>
+        {subtitle && <p class:list={["mt-4 max-w-2xl text-base leading-relaxed", paper ? "text-paper-muted" : "text-cream-muted"]}>{subtitle}</p>}
+      </div>
+      <slot />
+    </div>
+  </div>
+</section>

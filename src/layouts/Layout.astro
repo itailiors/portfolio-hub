@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Itai Lior — Full-Stack Product Engineer & Indie Maker",
-  description = "Product studio & portfolio: Chrome extensions, mobile apps and games — plus remote backend, MVP and extension contracts.",
+  title = "Itai Lior // Software & Jazz Co-op",
+  description = "Independent software & creative co-op: Chrome extensions, mobile apps and games — plus remote backend, MVP and extension contracts.",
 } = Astro.props;
 ---
 
@@ -18,7 +18,7 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#08080a" />
+    <meta name="theme-color" content="#0e0d0c" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -27,11 +27,11 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,600;1,700;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen overflow-x-hidden">
+  <body class="min-h-screen overflow-x-clip">
     <slot />
   </body>
 </html>

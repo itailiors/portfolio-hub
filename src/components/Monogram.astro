@@ -1,0 +1,25 @@
+---
+/** "IL" block monogram — heavy slab letters with a slanted brush cut. */
+interface Props {
+  size?: number;
+  class?: string;
+  dot?: boolean;
+}
+const { size = 64, class: className = "", dot = true } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 124 100"
+  width={size}
+  height={Math.round((size * 100) / 124)}
+  class={className}
+  role="img"
+  aria-label="IL monogram"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g fill="currentColor" transform="skewX(-9) translate(14 0)">
+    <path d="M4 6 H52 L50 22 H38 V74 H52 L50 94 H2 L4 74 H16 V22 H4 Z" />
+    <path d="M58 6 H90 L88 20 H82 V72 H104 L108 56 H118 L114 94 H56 L58 80 H62 V20 H58 Z" />
+  </g>
+  {dot && <rect x="108" y="6" width="14" height="14" fill="#D9231A" />}
+</svg>

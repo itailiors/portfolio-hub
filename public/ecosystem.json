@@ -15,16 +15,27 @@
       "tagline": "Skip to the parts everyone rewatches.",
       "category": "live-product",
       "statusBadge": "Live · Chrome Web Store",
-      "platforms": ["chrome"],
+      "platforms": [
+        "chrome"
+      ],
       "icon": "🔥",
-      "accentColor": "#fb7185",
+      "accentColor": "#D9231A",
       "consumerDescription": "HeatReel turns YouTube's \"most replayed\" heatmap into an instant highlight reel. One click jumps you between the peaks, auto-plays the best moments back-to-back, and adds playback controls YouTube forgot to ship.",
       "ctaText": "Add to Chrome — Free",
       "ctaUrl": "https://chromewebstore.google.com/",
       "utmTag": "heatreel",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["WXT", "React", "TypeScript", "MutationObserver", "Chrome MV3"],
+        "stack": [
+          "WXT",
+          "React",
+          "TypeScript",
+          "MutationObserver",
+          "Chrome MV3"
+        ],
         "architectureHighlight": "A MutationObserver watches YouTube's SPA navigation and lazily-rendered player chrome, then reads the crowd-replay heatmap's SVG <path> 'd' attribute. The Bézier commands are sampled into a normalized intensity curve, smoothed, and peak-detected with a prominence threshold to produce timestamped segments — no API keys, no network calls, everything runs client-side in a content script.",
         "metrics": "Zero backend · <5 ms segment extraction per video · survives YouTube DOM rewrites via resilient selectors"
       }
@@ -35,16 +46,29 @@
       "tagline": "Grade a psychometric answer sheet in 3 seconds.",
       "category": "in-progress",
       "statusBadge": "Beta · iOS & Android",
-      "platforms": ["ios", "android"],
+      "platforms": [
+        "ios",
+        "android"
+      ],
       "icon": "📝",
-      "accentColor": "#a78bfa",
+      "accentColor": "#1B4596",
       "consumerDescription": "Practicing for the Israeli Psychometric Entrance Exam? Snap a photo of your bubble sheet and PsychoScanner grades it instantly, shows your section scores, and tracks your progress across every practice test.",
       "ctaText": "Join the Beta",
       "ctaUrl": "https://example.com/psychoscanner",
       "utmTag": "psychoscanner",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["React Native", "Expo", "Python", "FastAPI", "OpenCV", "SQLite"],
+        "stack": [
+          "React Native",
+          "Expo",
+          "Python",
+          "FastAPI",
+          "OpenCV",
+          "SQLite"
+        ],
         "architectureHighlight": "The Expo client uploads a compressed capture to a FastAPI service. OpenCV finds the sheet's four fiducial corners via contour approximation, applies a perspective warp to a canonical template, then thresholds and samples each bubble ROI to compute fill ratios. Ambiguous marks are flagged rather than guessed, and results persist to SQLite for per-user progress analytics.",
         "metrics": "~3 s phone-to-score · robust to skew, shadows and partial lighting · deterministic template-based grading"
       }
@@ -55,16 +79,27 @@
       "tagline": "Ride thermals with your friends. Plus a pile of 48-hour experiments.",
       "category": "game",
       "statusBadge": "Playable · itch.io",
-      "platforms": ["windows", "web"],
+      "platforms": [
+        "windows",
+        "web"
+      ],
       "icon": "🪂",
-      "accentColor": "#38bdf8",
+      "accentColor": "#E85D1A",
       "consumerDescription": "A real-time multiplayer 3D paragliding game — catch thermals, race ridgelines and soar together. Alongside it: a collection of rapid-prototype Game Jam titles you can play right in your browser.",
       "ctaText": "Play on itch.io",
       "ctaUrl": "https://itch.io/",
       "utmTag": "paraglider",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["Unity", "C#", "Netcode for GameObjects", "Unity Transport"],
+        "stack": [
+          "Unity",
+          "C#",
+          "Netcode for GameObjects",
+          "Unity Transport"
+        ],
         "architectureHighlight": "Server-authoritative flight model built on Netcode for GameObjects: clients send input, the host simulates lift, drag and thermal fields, and state is replicated with client-side interpolation to keep gliders smooth over real-world latency.",
         "metrics": "Real-time multiplayer · jam prototypes shipped in 48–72 h"
       }
@@ -75,16 +110,27 @@
       "tagline": "Never watch your bus drive past again.",
       "category": "in-progress",
       "statusBadge": "R&D · Co-founded",
-      "platforms": ["api", "mobile"],
+      "platforms": [
+        "api",
+        "mobile"
+      ],
       "icon": "🚏",
-      "accentColor": "#34d399",
+      "accentColor": "#174936",
       "consumerDescription": "A digital \"stop button\" for the bus stop. Tap to signal the driver that someone is waiting, so buses stop skipping riders — especially at night, in the rain, or for passengers who can't easily flag a bus down.",
       "ctaText": "Follow the Venture",
       "ctaUrl": "https://example.com/stop-for-me",
       "utmTag": "stop-for-me",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["REST API", "SDK design", "Geo-fencing", "Real-time events"],
+        "stack": [
+          "REST API",
+          "SDK design",
+          "Geo-fencing",
+          "Real-time events"
+        ],
         "architectureHighlight": "Riders emit a geo-verified stop request that is matched to the next approaching vehicle on the route; the SDK pushes a real-time alert to the driver-facing display and de-duplicates requests per stop to avoid alert fatigue. Designed as an embeddable SDK so existing transit apps can integrate the button.",
         "metrics": "Concept / R&D stage · co-founded transit venture"
       }

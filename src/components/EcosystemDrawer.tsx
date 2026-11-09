@@ -17,7 +17,7 @@
  */
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 
-export const ECOSYSTEM_DRAWER_VERSION = "1.0.0";
+export const ECOSYSTEM_DRAWER_VERSION = "1.1.0";
 export const DEFAULT_MANIFEST_URL = "https://example.com/ecosystem.json"; // TODO: set production domain
 
 /* ───────────────────────────── Types ───────────────────────────── */
@@ -106,18 +106,32 @@ export async function loadManifest(url = DEFAULT_MANIFEST_URL, signal?: AbortSig
 
 /* ───────────────────────────── Styles ───────────────────────────── */
 
+// "Software & Jazz Co-op" palette — night black, crimson, terracotta, cream.
 const C = {
-  bg: "#0d0d10",
-  card: "rgba(255,255,255,0.04)",
-  cardHover: "rgba(255,255,255,0.08)",
-  border: "rgba(255,255,255,0.09)",
-  fg: "#ededf0",
-  muted: "#a1a1aa",
-  subtle: "#71717a",
-  brand: "#a78bfa",
+  bg: "#171513",
+  card: "#1F1C19",
+  cardHover: "#2A2622",
+  border: "rgba(242,235,221,0.14)",
+  fg: "#F2EBDD",
+  muted: "#B8AE9F",
+  subtle: "#8A8175",
+  brand: "#D9231A",
 };
 
-const font = 'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif';
+const font = '"Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif';
+const mono = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
+
+/** Near-black or near-white text, whichever contrasts more with `hex`. */
+export function readableOn(hex: string): string {
+  const n = hex.replace("#", "");
+  if (n.length !== 6) return "#FFF8EC";
+  const [r, g, b] = [0, 2, 4].map((i) => {
+    const c = parseInt(n.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return 1.05 / (L + 0.05) >= (L + 0.05) / 0.05 ? "#FFF8EC" : "#0E0D0C";
+}
 
 const s: Record<string, CSSProperties> = {
   root: {
@@ -133,12 +147,13 @@ const s: Record<string, CSSProperties> = {
     fontFamily: font,
     fontSize: 14,
     lineHeight: 1.45,
-    borderRadius: 16,
+    borderRadius: 6,
     border: `1px solid ${C.border}`,
+    borderTop: `3px solid ${C.brand}`,
     overflow: "hidden",
   },
   header: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px 10px" },
-  title: { fontSize: 13, fontWeight: 600, letterSpacing: 0.2, color: C.fg, margin: 0 },
+  title: { fontSize: 11, fontWeight: 500, letterSpacing: 1.6, textTransform: "uppercase", fontFamily: mono, color: C.fg, margin: 0 },
   sub: { fontSize: 11, color: C.subtle, margin: "2px 0 0" },
   close: {
     background: "transparent",
@@ -146,7 +161,7 @@ const s: Record<string, CSSProperties> = {
     color: C.muted,
     width: 26,
     height: 26,
-    borderRadius: 8,
+    borderRadius: 3,
     cursor: "pointer",
     fontSize: 14,
     lineHeight: "22px",
@@ -158,7 +173,7 @@ const s: Record<string, CSSProperties> = {
     alignItems: "center",
     gap: 12,
     padding: 10,
-    borderRadius: 12,
+    borderRadius: 4,
     background: C.card,
     border: `1px solid ${C.border}`,
     textDecoration: "none",
@@ -170,7 +185,7 @@ const s: Record<string, CSSProperties> = {
     flex: "0 0 40px",
     width: 40,
     height: 40,
-    borderRadius: 10,
+    borderRadius: 3,
     display: "grid",
     placeItems: "center",
     fontSize: 20,
@@ -178,8 +193,8 @@ const s: Record<string, CSSProperties> = {
   itemBody: { flex: 1, minWidth: 0 },
   itemName: { fontSize: 13, fontWeight: 600, margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" },
   itemTag: { fontSize: 12, color: C.muted, margin: "2px 0 0", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" },
-  badge: { fontSize: 10, color: C.subtle, marginTop: 4, fontFamily: "ui-monospace, monospace" },
-  cta: { flex: "0 0 auto", fontSize: 11, fontWeight: 600, padding: "6px 10px", borderRadius: 999, color: "#0d0d10" },
+  badge: { fontSize: 10, color: C.subtle, marginTop: 4, fontFamily: mono, textTransform: "uppercase", letterSpacing: 0.5 },
+  cta: { flex: "0 0 auto", fontSize: 11, fontWeight: 600, padding: "6px 10px", borderRadius: 3 },
   banner: {
     flex: "0 0 20%",
     minHeight: 84,
@@ -189,12 +204,11 @@ const s: Record<string, CSSProperties> = {
     gap: 12,
     padding: "0 16px",
     textDecoration: "none",
-    color: C.fg,
-    background: "linear-gradient(135deg, rgba(139,92,246,0.28), rgba(52,211,153,0.18))",
-    borderTop: `1px solid ${C.border}`,
+    background: C.brand,
+    color: "#FFF8EC",
   },
   bannerText: { fontSize: 14, fontWeight: 600, margin: 0 },
-  bannerSub: { fontSize: 11, color: C.muted, margin: "2px 0 0" },
+  bannerSub: { fontSize: 10, color: "#FFF8EC", margin: "3px 0 0", fontFamily: mono, textTransform: "uppercase", letterSpacing: 0.8 },
   bannerArrow: { fontSize: 18, flex: "0 0 auto" },
   state: { padding: 24, color: C.subtle, fontSize: 12, textAlign: "center" },
 };
@@ -280,7 +294,7 @@ export default function EcosystemDrawer({
               onMouseLeave={() => setHovered(null)}
               onClick={() => onProductClick?.(p)}
             >
-              <span style={{ ...s.icon, background: `${accent}22`, boxShadow: `inset 0 0 0 1px ${accent}44` }} aria-hidden>
+              <span style={{ ...s.icon, background: "#0E0D0C", boxShadow: `inset 0 0 0 2px ${accent}` }} aria-hidden>
                 {p.icon ?? "◆"}
               </span>
               <span style={s.itemBody}>
@@ -288,7 +302,7 @@ export default function EcosystemDrawer({
                 <p style={s.itemTag}>{p.tagline}</p>
                 <p style={s.badge}>{p.statusBadge}</p>
               </span>
-              <span style={{ ...s.cta, background: accent }}>{shortCta(p.category)}</span>
+              <span style={{ ...s.cta, background: accent, color: readableOn(accent) }}>{shortCta(p.category)}</span>
             </a>
           );
         })}

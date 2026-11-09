@@ -1,8 +1,10 @@
 import { useState, type ReactNode } from "react";
+import JazzPosterArt from "./JazzPosterArt";
 import type { EcosystemManifest, EcosystemProduct, ProductCategory } from "../types/ecosystem";
 
 type ViewMode = "user" | "engineering";
 type Filter = "all" | ProductCategory;
+type Surface = "night" | "paper";
 
 interface Props {
   manifest: EcosystemManifest;
@@ -26,6 +28,34 @@ const PLATFORM_LABEL: Record<string, string> = {
   mobile: "Mobile",
 };
 
+/** Per-surface tokens. Live products are printed on gallery paper; the rest sit on the night canvas. */
+const THEME: Record<Surface, { card: string; frame: string; text: string; muted: string; subtle: string; pill: string; rule: string; eyebrow: string; metrics: string; flip: string }> = {
+  night: {
+    card: "card-night",
+    frame: "poster-frame",
+    text: "text-cream",
+    muted: "text-cream-muted",
+    subtle: "text-cream-subtle",
+    pill: "border-cream/20 text-cream",
+    rule: "border-cream/10",
+    eyebrow: "eyebrow",
+    metrics: "text-terra",
+    flip: "border-cream/25 text-cream-muted hover:border-cream hover:text-cream",
+  },
+  paper: {
+    card: "bg-paper-warm",
+    frame: "poster-frame on-paper",
+    text: "text-paper-ink",
+    muted: "text-paper-muted",
+    subtle: "text-paper-muted",
+    pill: "border-paper-ink/25 text-paper-ink",
+    rule: "border-paper-ink/15",
+    eyebrow: "eyebrow on-paper",
+    metrics: "text-cobalt",
+    flip: "border-paper-ink/30 text-paper-ink hover:bg-paper-ink hover:text-paper-warm",
+  },
+};
+
 function withUtm(url: string, campaign: string): string {
   try {
     const u = new URL(url);
@@ -36,6 +66,17 @@ function withUtm(url: string, campaign: string): string {
   } catch {
     return url;
   }
+}
+
+/** Picks near-black or near-white text for the best contrast on `hex`. */
+function readableOn(hex: string): string {
+  const n = hex.replace("#", "");
+  const [r, g, b] = [0, 2, 4].map((i) => {
+    const c = parseInt(n.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return (1.05 / (L + 0.05) >= (L + 0.05) / 0.05 ? "#FFF8EC" : "#0E0D0C");
 }
 
 export default function ProductShowcase({ manifest, hireHref = "#hire" }: Props) {
@@ -52,16 +93,16 @@ export default function ProductShowcase({ manifest, hireHref = "#hire" }: Props)
 
   return (
     <div>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter products">
+      <div className="flex flex-col gap-5 border-y border-cream/15 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap gap-x-5 gap-y-2" role="group" aria-label="Filter products">
           {FILTERS.map((f) => (
             <button
               key={f.id}
               type="button"
               onClick={() => setFilter(f.id)}
               aria-pressed={filter === f.id}
-              className={`rounded-full px-3 py-1 text-sm transition ${
-                filter === f.id ? "bg-white/10 text-fg" : "text-fg-subtle hover:text-fg"
+              className={`border-b-2 py-1 font-mono text-[11px] uppercase tracking-[0.14em] transition ${
+                filter === f.id ? "border-crimson text-cream" : "border-transparent text-cream-subtle hover:text-cream"
               }`}
             >
               {f.label}
@@ -72,13 +113,15 @@ export default function ProductShowcase({ manifest, hireHref = "#hire" }: Props)
         <ModeToggle mode={globalMode} onChange={setGlobal} />
       </div>
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      <div className="mt-10 grid gap-8 md:grid-cols-2">
         {products.map((p) => {
           const mode = overrides[p.id] ?? globalMode;
+          const index = manifest.products.indexOf(p) + 1;
           return (
             <ProductCard
               key={p.id}
               product={p}
+              index={index}
               mode={mode}
               hireHref={hireHref}
               onFlip={() => setOverrides((o) => ({ ...o, [p.id]: mode === "user" ? "engineering" : "user" }))}
@@ -92,10 +135,10 @@ export default function ProductShowcase({ manifest, hireHref = "#hire" }: Props)
 
 function ModeToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode) => void }) {
   return (
-    <div className="relative inline-grid grid-cols-2 rounded-full border border-white/10 bg-white/[0.03] p-1 text-sm" role="radiogroup" aria-label="View mode">
+    <div className="relative grid w-full grid-cols-2 border border-cream/25 p-0.5 text-sm sm:inline-grid sm:w-auto" role="radiogroup" aria-label="View mode">
       <span
         aria-hidden
-        className="absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-white/10 shadow-inner transition-transform duration-300 ease-out"
+        className="absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] bg-crimson transition-transform duration-300 ease-out"
         style={{ transform: mode === "engineering" ? "translateX(100%)" : "translateX(0)" }}
       />
       {(["user", "engineering"] as const).map((m) => (
@@ -105,7 +148,7 @@ function ModeToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode
           role="radio"
           aria-checked={mode === m}
           onClick={() => onChange(m)}
-          className={`relative z-10 whitespace-nowrap rounded-full px-4 py-1.5 transition-colors ${mode === m ? "text-fg" : "text-fg-subtle hover:text-fg-muted"}`}
+          className={`relative z-10 whitespace-nowrap px-4 py-2 font-medium transition-colors ${mode === m ? "text-[#fff8ec]" : "text-cream-muted hover:text-cream"}`}
         >
           {m === "user" ? "✨ User View" : "⚙️ Under the Hood"}
         </button>
@@ -116,49 +159,37 @@ function ModeToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode
 
 function ProductCard({
   product: p,
+  index,
   mode,
   hireHref,
   onFlip,
 }: {
   product: EcosystemProduct;
+  index: number;
   mode: ViewMode;
   hireHref: string;
   onFlip: () => void;
 }) {
-  const accent = p.accentColor ?? "#a78bfa";
+  const accent = p.accentColor ?? "#D9231A";
+  const surface: Surface = p.category === "live-product" ? "paper" : "night";
+  const t = THEME[surface];
   const isEng = mode === "engineering";
 
   return (
-    <article
-      className="glass glass-hover group relative flex flex-col overflow-hidden rounded-2xl"
-      style={{ ["--accent" as string]: accent }}
-    >
-      {/* accent glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-35"
-        style={{ background: accent }}
-      />
-
-      <header className="relative flex items-start justify-between gap-3 p-5 pb-0">
-        <div className="flex min-w-0 items-center gap-3">
-          <span
-            className="grid h-11 w-11 shrink-0 place-items-center rounded-xl text-xl"
-            style={{ background: `${accent}1f`, boxShadow: `inset 0 0 0 1px ${accent}40` }}
-            aria-hidden
-          >
-            {p.icon}
-          </span>
+    <article className={`${t.frame} ${t.card} ${t.text} group flex flex-col`}>
+      <header className={`flex items-start justify-between gap-3 border-b ${t.rule} px-5 py-4`}>
+        <div className="flex min-w-0 items-baseline gap-3">
+          <span className="font-serif text-3xl font-bold italic leading-none text-crimson">{String(index).padStart(2, "0")}</span>
           <div className="min-w-0">
-            <h3 className="truncate text-base font-semibold">{p.name}</h3>
-            <p className="font-mono text-[11px] text-fg-subtle">{p.statusBadge}</p>
+            <h3 className="font-display text-[28px] leading-[0.95] tracking-wide [overflow-wrap:anywhere]">{p.name}</h3>
+            <p className={`mt-1 font-mono text-[11px] uppercase tracking-[0.08em] ${t.muted}`}>{p.statusBadge}</p>
           </div>
         </div>
         <button
           type="button"
           onClick={onFlip}
           aria-pressed={isEng}
-          className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-fg-muted transition hover:border-white/20 hover:text-fg"
+          className={`shrink-0 border px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.08em] transition ${t.flip}`}
           title={isEng ? "Show user view" : "Show engineering view"}
         >
           {isEng ? "✨ User" : "⚙️ Specs"}
@@ -166,24 +197,33 @@ function ProductCard({
       </header>
 
       {/* Both faces share one grid cell so the card height never jumps */}
-      <div className="relative grid flex-1 p-5">
+      <div className="grid flex-1 p-5">
         <Face active={!isEng}>
-          <MediaPlaceholder product={p} />
-          <p className="mt-4 text-lg font-medium leading-snug">{p.tagline}</p>
-          <p className="mt-2 text-sm leading-relaxed text-fg-muted">{p.consumerDescription}</p>
-          <div className="mt-auto flex flex-wrap items-center gap-3 pt-5">
+          <div className={`relative overflow-hidden border ${t.rule}`}>
+            <MediaSlot product={p} surface={surface} />
+            <span
+              className="absolute left-3 top-3 grid h-11 w-11 place-items-center text-xl shadow-lg"
+              style={{ background: "#0E0D0C", boxShadow: `inset 0 0 0 2px ${accent}` }}
+              aria-hidden
+            >
+              {p.icon}
+            </span>
+          </div>
+          <p className="mt-5 font-serif text-2xl font-semibold italic leading-tight">{p.tagline}</p>
+          <p className={`mt-2 text-sm leading-relaxed ${t.muted}`}>{p.consumerDescription}</p>
+          <div className="mt-auto flex flex-wrap items-center gap-2 pt-6">
             <a
               href={withUtm(p.ctaUrl, p.utmTag)}
               target="_blank"
               rel="noopener noreferrer"
               tabIndex={isEng ? -1 : 0}
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold text-ink-950 transition hover:brightness-110"
-              style={{ background: accent }}
+              className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold transition hover:brightness-110"
+              style={{ background: accent, color: readableOn(accent) }}
             >
               Try It Now · {p.ctaText} <span aria-hidden>↗</span>
             </a>
             {p.platforms?.map((pl) => (
-              <span key={pl} className="rounded-md border border-white/10 px-2 py-1 font-mono text-[10px] uppercase tracking-wide text-fg-subtle">
+              <span key={pl} className={`border px-2 py-1 font-mono text-[10px] uppercase tracking-wide ${t.pill}`}>
                 {PLATFORM_LABEL[pl] ?? pl}
               </span>
             ))}
@@ -191,23 +231,23 @@ function ProductCard({
         </Face>
 
         <Face active={isEng}>
-          <p className="eyebrow">Stack</p>
+          <p className={t.eyebrow}>Stack</p>
           <div className="mt-2 flex flex-wrap gap-1.5">
-            {p.engineeringSpecs.stack.map((t) => (
-              <span key={t} className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-xs text-fg">
-                {t}
+            {p.engineeringSpecs.stack.map((s) => (
+              <span key={s} className={`border px-2 py-0.5 font-mono text-xs ${t.pill}`}>
+                {s}
               </span>
             ))}
           </div>
-          <p className="eyebrow mt-5">Architecture</p>
-          <p className="mt-2 text-sm leading-relaxed text-fg-muted">{p.engineeringSpecs.architectureHighlight}</p>
-          <p className="eyebrow mt-5">Metrics</p>
-          <p className="mt-2 font-mono text-xs leading-relaxed text-accent">{p.engineeringSpecs.metrics}</p>
-          <div className="mt-auto pt-5">
+          <p className={`${t.eyebrow} mt-6`}>Architecture</p>
+          <p className={`mt-2 text-sm leading-relaxed ${t.muted}`}>{p.engineeringSpecs.architectureHighlight}</p>
+          <p className={`${t.eyebrow} mt-6`}>Metrics</p>
+          <p className={`mt-2 font-mono text-xs leading-relaxed ${t.metrics}`}>{p.engineeringSpecs.metrics}</p>
+          <div className="mt-auto pt-6">
             <a
               href={hireHref}
               tabIndex={isEng ? 0 : -1}
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-fg underline decoration-white/20 underline-offset-4 transition hover:decoration-brand"
+              className="btn-crimson px-4 py-2.5 text-sm"
             >
               Need something like this built? Let's talk. <span aria-hidden>→</span>
             </a>
@@ -222,7 +262,7 @@ function Face({ active, children }: { active: boolean; children: ReactNode }) {
   return (
     <div
       aria-hidden={!active}
-      className={`col-start-1 row-start-1 flex flex-col transition-all duration-400 ease-out ${
+      className={`col-start-1 row-start-1 flex min-w-0 flex-col transition-all duration-300 ease-out ${
         active ? "visible translate-y-0 opacity-100" : "invisible translate-y-2 opacity-0"
       }`}
     >
@@ -231,27 +271,27 @@ function Face({ active, children }: { active: boolean; children: ReactNode }) {
   );
 }
 
-function MediaPlaceholder({ product: p }: { product: EcosystemProduct }) {
-  const accent = p.accentColor ?? "#a78bfa";
+function MediaSlot({ product: p, surface }: { product: EcosystemProduct; surface: Surface }) {
   if (p.media?.src && (p.media.type === "image" || p.media.type === "gif")) {
-    return <img src={p.media.src} alt={`${p.name} preview`} loading="lazy" className="aspect-video w-full rounded-xl object-cover" />;
+    return <img src={p.media.src} alt={`${p.name} preview`} loading="lazy" className="block aspect-video w-full object-cover" />;
   }
   if (p.media?.src && p.media.type === "video") {
-    return <video src={p.media.src} autoPlay muted loop playsInline className="aspect-video w-full rounded-xl object-cover" />;
+    return <video src={p.media.src} autoPlay muted loop playsInline className="block aspect-video w-full object-cover" />;
   }
+  // Placeholder until a real demo video/gif is set in ecosystem.json → media
   return (
-    <div
-      className="relative grid aspect-video w-full place-items-center overflow-hidden rounded-xl border border-white/5"
-      style={{
-        background: `linear-gradient(120deg, ${accent}26, transparent 40%, ${accent}14 70%, transparent)`,
-        backgroundSize: "200% 100%",
-      }}
-    >
-      <div className="absolute inset-0 animate-shimmer" style={{ background: `linear-gradient(90deg, transparent, ${accent}18, transparent)`, backgroundSize: "200% 100%" }} />
-      <span className="text-5xl drop-shadow-lg" aria-hidden>
-        {p.icon}
+    <div className="relative">
+      <JazzPosterArt
+        variant="card"
+        seed={p.id}
+        accent={p.accentColor ?? "#D9231A"}
+        surface={surface}
+        className="block aspect-video w-full"
+        label={`${p.name} artwork — demo video placeholder`}
+      />
+      <span className="absolute bottom-1.5 right-2 bg-night/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-cream-muted">
+        demo video slot
       </span>
-      <span className="absolute bottom-2 right-3 font-mono text-[10px] text-fg-subtle">demo video / gif placeholder</span>
     </div>
   );
 }

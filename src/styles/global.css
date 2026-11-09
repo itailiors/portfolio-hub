@@ -1,34 +1,64 @@
 @import "tailwindcss";
 
+/*
+ * "Software & Jazz Co-op" design system.
+ * Palette pulled from the North Gate Jazz Co-op posters (night black + crimson,
+ * gallery paper), Blue Note-style cobalt ink line art, and Bauhaus geometric jazz prints.
+ */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Type */
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Bebas Neue", "Space Grotesk", ui-sans-serif, sans-serif; /* condensed vertical headers */
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif; /* italic overlapping accents & numerals */
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-ink-950: #08080a;
-  --color-ink-900: #0d0d10;
-  --color-ink-850: #121216;
-  --color-ink-800: #18181d;
-  --color-ink-700: #24242b;
-  --color-ink-600: #34343d;
+  /* Night session (primary canvas) */
+  --color-night: #0e0d0c;
+  --color-char: #171513;
+  --color-char-2: #1f1c19;
+  --color-char-3: #2a2622;
 
-  --color-fg: #ededf0;
-  --color-fg-muted: #a1a1aa;
-  --color-fg-subtle: #71717a;
+  /* Gallery print surfaces */
+  --color-paper: #efe9dc;
+  --color-paper-warm: #f6eac2;
+  --color-paper-ink: #1a1714; /* body text on paper */
+  --color-paper-muted: #5c544a;
 
-  --color-brand: #a78bfa;
-  --color-brand-strong: #8b5cf6;
-  --color-accent: #34d399;
+  /* Poster accents */
+  --color-crimson: #d9231a; /* display numerals, primary CTA, active state — large text / fills only */
+  --color-crimson-deep: #b51c14;
+  --color-terra: #e85d1a; /* saxophone terracotta / Bauhaus orange — safe for small text on night */
+  --color-cobalt: #1b4596; /* ink on paper */
+  --color-stage: #174936; /* stage green badges */
+
+  /* Foreground on night */
+  --color-cream: #f2ebdd;
+  --color-cream-muted: #b8ae9f;
+  --color-cream-subtle: #8a8175;
+
+  /* Legacy aliases (kept so older classes keep resolving) */
+  --color-ink-950: var(--color-night);
+  --color-ink-900: #131210;
+  --color-ink-850: var(--color-char);
+  --color-ink-800: var(--color-char-2);
+  --color-ink-700: var(--color-char-3);
+  --color-fg: var(--color-cream);
+  --color-fg-muted: var(--color-cream-muted);
+  --color-fg-subtle: var(--color-cream-subtle);
+  --color-brand: var(--color-crimson);
+  --color-accent: var(--color-terra);
 
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-  --animate-shimmer: shimmer 6s linear infinite;
+  --animate-eq: eq 2.4s ease-in-out infinite alternate;
 
   @keyframes fade-up {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  @keyframes shimmer {
-    from { background-position: 0% 50%; }
-    to { background-position: 200% 50%; }
+  @keyframes eq {
+    0% { transform: scaleY(1); }
+    50% { transform: scaleY(0.72); }
+    100% { transform: scaleY(1.06); }
   }
 }
 
@@ -36,58 +66,122 @@
   html {
     color-scheme: dark;
     scroll-behavior: smooth;
-    background: var(--color-ink-950);
+    background: var(--color-night);
   }
   body {
-    background: var(--color-ink-950);
-    color: var(--color-fg);
+    background: var(--color-night);
+    color: var(--color-cream);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  ::selection { background: color-mix(in oklab, var(--color-brand) 40%, transparent); }
-  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 6px; }
+  /* Canvas / paper grain over everything (pure SVG noise, no image assets) */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  ::selection { background: var(--color-crimson); color: #fff8ec; }
+  :focus-visible { outline: 2px solid var(--color-terra); outline-offset: 3px; }
   section[id] { scroll-margin-top: 5rem; }
 }
 
 @layer components {
-  .glass {
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.015));
-    border: 1px solid rgb(255 255 255 / 0.08);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 20px 40px -24px rgb(0 0 0 / 0.6);
+  /* Exhibition frame: crisp exposed border + "+" registration marks at each corner */
+  .poster-frame {
+    position: relative;
+    border: 1px solid rgb(242 235 221 / 0.14);
   }
-  .glass-hover {
-    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  .poster-frame::before {
+    --m: rgb(242 235 221 / 0.45);
+    content: "";
+    position: absolute;
+    inset: -7px;
+    pointer-events: none;
+    background:
+      linear-gradient(var(--m), var(--m)) left 0 top 6px / 13px 1px no-repeat,
+      linear-gradient(var(--m), var(--m)) left 6px top 0 / 1px 13px no-repeat,
+      linear-gradient(var(--m), var(--m)) right 0 top 6px / 13px 1px no-repeat,
+      linear-gradient(var(--m), var(--m)) right 6px top 0 / 1px 13px no-repeat,
+      linear-gradient(var(--m), var(--m)) left 0 bottom 6px / 13px 1px no-repeat,
+      linear-gradient(var(--m), var(--m)) left 6px bottom 0 / 1px 13px no-repeat,
+      linear-gradient(var(--m), var(--m)) right 0 bottom 6px / 13px 1px no-repeat,
+      linear-gradient(var(--m), var(--m)) right 6px bottom 0 / 1px 13px no-repeat;
   }
-  .glass-hover:hover {
-    border-color: rgb(255 255 255 / 0.16);
-    transform: translateY(-2px);
+  .poster-frame.on-paper { border-color: rgb(26 23 20 / 0.22); }
+  .poster-frame.on-paper::before { --m: rgb(27 69 150 / 0.7); }
+
+  .card-night {
+    background: var(--color-char);
+    transition: border-color 0.25s ease, transform 0.25s ease;
   }
+  .card-night:hover { border-color: rgb(242 235 221 / 0.3); }
+
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-brand);
+    color: var(--color-terra);
   }
-  .text-gradient {
-    background: linear-gradient(90deg, #fff 0%, #c4b5fd 45%, #6ee7b7 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
+  .on-paper .eyebrow, .eyebrow.on-paper { color: var(--color-cobalt); }
+
+  /* Vertical side-rail lettering (reads bottom → top like the poster) */
+  .rail-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+    line-height: 0.85;
+    white-space: nowrap;
     color: transparent;
+    -webkit-text-stroke: 1px rgb(242 235 221 / 0.55);
   }
-  .grid-bg {
-    background-image:
-      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 75%);
+  .numeral {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--color-crimson);
+    line-height: 0.8;
+  }
+
+  .btn-crimson {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--color-crimson);
+    color: #fff8ec;
+    font-weight: 600;
+    border: 1px solid var(--color-crimson);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .btn-crimson:hover { background: var(--color-crimson-deep); }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--color-cream);
+    font-weight: 600;
+    border: 1px solid rgb(242 235 221 / 0.3);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .btn-ghost:hover { border-color: var(--color-cream); background: rgb(242 235 221 / 0.05); }
+
+  .eq-bar {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: var(--animate-eq);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }

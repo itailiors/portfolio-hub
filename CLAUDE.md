@@ -30,18 +30,43 @@ public/
 src/
   data/profile.json       ← CV timeline, services, creative bio — all copy for the CV sections
   types/ecosystem.ts      ← TS types for ecosystem.json
-  styles/global.css       ← Tailwind import, @theme tokens, .glass / .eyebrow / .text-gradient helpers
-  layouts/Layout.astro
+  styles/global.css       ← Tailwind import, @theme tokens, paper grain, .poster-frame / .rail-text / .numeral / .btn-* helpers
+  layouts/Layout.astro    ← Google Fonts: Bebas Neue, Playfair Display (italic), Space Grotesk, JetBrains Mono
   pages/index.astro       ← homepage; imports ../../public/ecosystem.json as the single source of truth
   components/
     ProductShowcase.tsx   ← React island: filter chips + global "✨ User View / ⚙️ Under the Hood" toggle + per-card flip
     EcosystemDrawer.tsx   ← PORTABLE drop-in "More tools by me" drawer (see sync rules below)
     DrawerPreview.tsx     ← site-only wrapper that simulates the drawer inside each host app
-    sections/             ← static Astro sections: Nav, Hero, Experience (+ Services), CreativeLab, Hire, SectionHeader
+    JazzPosterArt.tsx     ← pure-SVG generative poster art (variant "hero" | "card"); rendered static, no hydration
+    Monogram.astro        ← "IL" block monogram (also baked into public/favicon.svg)
+    sections/             ← static Astro sections: Nav, Hero, PosterSection (shell), Experience (+ Services), CreativeLab, Hire (+ footer)
 vercel.json
 ```
 
-Design language: dark-only, Linear/Raycast/Vercel-ish. Use the `ink-*`, `fg`, `fg-muted`, `fg-subtle`, `brand`, `accent` tokens and the `.glass` / `.glass-hover` utilities rather than raw colors. Per-product accent colors come from `accentColor` in the manifest.
+## Design system — "Software & Jazz Co-op"
+
+Inspired by the North Gate Jazz Co-op (Chiang Mai) posters, Blue Note-style cobalt ink drawings, and Bauhaus geometric jazz prints. **Never embed the reference posters as images** — everything is tokens, type and inline SVG.
+
+| Token | Hex | Use |
+|---|---|---|
+| `night` | `#0E0D0C` | page canvas |
+| `char` / `char-2` / `char-3` | `#171513` / `#1F1C19` / `#2A2622` | card surfaces |
+| `paper` / `paper-warm` | `#EFE9DC` / `#F6EAC2` | gallery-print surfaces (services band, live-product cards, venue card) |
+| `crimson` | `#D9231A` | numerals, primary CTA fill, active states. **Large text / fills only** — fails AA as small text on night |
+| `terra` | `#E85D1A` | eyebrows & small accent text on night (5.5:1) |
+| `cobalt` | `#1B4596` | ink on paper (7:1) — too dark for text on night |
+| `stage` | `#174936` | badges / secondary fills |
+| `cream` / `cream-muted` / `cream-subtle` | `#F2EBDD` / `#B8AE9F` / `#8A8175` | text on night |
+
+Legacy aliases (`ink-*`, `fg*`, `brand`, `accent`) map onto these so old classes still resolve; prefer the new names.
+
+Type: `font-display` (Bebas Neue) for headers and vertical rails, `font-serif` italic (Playfair) for overlapping accents and crimson numerals, `font-sans` (Space Grotesk) body, `font-mono` (JetBrains Mono) for specs/labels.
+
+Patterns:
+- **Poster frame** — `.poster-frame` adds a 1px border plus `+` registration marks at the corners via `::before` (inset −7px; don't put it inside `overflow-hidden` parents). Add `.on-paper` on cream surfaces.
+- **Side rails** — wrap sections in `PosterSection.astro` with `number` + `rail` (`01 LIVE PRODUCTS`, `02 ARCHITECTURE`, `03 CREATIVE CO-OP`). On `lg+` it renders vertical outlined Bebas lettering overlapped by a crimson Playfair numeral; below `lg` it collapses into the eyebrow line, so there's no horizontal overflow.
+- **Surfaces** — live products print on paper; in-progress/games sit on night. CTA text color is picked automatically by `readableOn(accent)`.
+- Sharp corners everywhere (no rounded pills) except device mockups. Product `accentColor` values in the manifest stay within the palette.
 
 ## `ecosystem.json` schema (schemaVersion 1)
 
