@@ -5,70 +5,95 @@
   "location": "Israel · Remote-friendly (EU / US overlap)",
   "availability": "Open to remote contracts & MVP builds",
   "contact": {
-    "email": "hello@example.com",
-    "github": "https://github.com/",
-    "linkedin": "https://www.linkedin.com/",
-    "itch": "https://itch.io/",
-    "youtube": "https://www.youtube.com/",
+    "email": "itaispam67@gmail.com",
+    "github": "https://github.com/itailiors",
+    "linkedin": "https://www.linkedin.com/in/itailior-090a44253",
+    "itch": "https://itch.io/profile/ogfenix",
+    "youtube": "https://www.youtube.com/@itai171",
+    "instagram": "https://www.instagram.com/it.is.lio/",
     "calendly": ""
   },
   "credibility": [
-    "Ex-eBay (Backend)",
-    "Angor.io (Web3/Open-Source)",
-    "3 Yrs Military Full-Stack & Automation",
+    "Ex-eBay (Backend & DevOps)",
+    "Angor.io (Bitcoin / Open-Source)",
+    "3 Yrs Full-Stack @ National Governance Body",
     "Coding since Middle School"
   ],
   "experience": [
     {
-      "id": "ebay",
-      "company": "eBay",
-      "role": "Backend Engineer",
-      "period": "YYYY – YYYY",
-      "location": "TODO",
-      "summary": "TODO: paste a one-line summary of your eBay role.",
-      "highlights": [
-        "TODO: high-scale service / API you owned",
-        "TODO: measurable impact (latency, throughput, cost, reliability)",
-        "TODO: notable cross-team or on-call ownership"
-      ],
-      "stack": ["Java", "Microservices", "TODO"]
-    },
-    {
       "id": "angor",
       "company": "Angor.io",
-      "role": "Backend Engineer",
-      "period": "YYYY – YYYY",
+      "role": "Software Developer · Backend",
+      "period": "2024 – Present",
       "location": "Remote",
-      "summary": "Backend engineering at an open-source, Bitcoin-based decentralized crowdfunding startup.",
+      "summary": "Core features for Angor, an open-source decentralized crowdfunding platform built on Bitcoin and Nostr.",
       "highlights": [
-        "TODO: protocol / backend work you shipped",
-        "TODO: open-source contributions & PRs",
-        "TODO: impact"
+        "Build platform features in C# / .NET compiled to WebAssembly.",
+        "Work on staged fund releases that keep investors in transparent control of their capital.",
+        "Focus on secure, scalable flows in an open-source codebase developed in public."
       ],
-      "stack": ["C#", ".NET", "Bitcoin", "Nostr", "TODO"]
+      "stack": [
+        "C#",
+        ".NET",
+        "WebAssembly",
+        "Bitcoin",
+        "Nostr"
+      ]
     },
     {
-      "id": "military",
-      "company": "Military Service",
-      "role": "Full-Stack & Automation Developer",
-      "period": "3 years",
+      "id": "ebay",
+      "company": "eBay",
+      "role": "Software Developer · Backend & DevOps",
+      "period": "2023 – 2024",
       "location": "Israel",
-      "summary": "Built and maintained internal full-stack systems and automation tooling for operational units.",
+      "summary": "Backend and DevOps work on eBay's Ontology platform — the category and metadata graph that structures every item, product and value on the marketplace.",
       "highlights": [
-        "TODO: internal platform you built end-to-end",
-        "TODO: automation that saved X hours / week",
-        "TODO: users served / scale"
+        "Contributed to backend services in Java & Spring Boot, building REST integrations with RestTemplate.",
+        "Built Java infrastructure over a Neo4j graph database, using the Builder pattern to model and validate the catalog ontology.",
+        "Wrote Jenkins pipelines that automated release processes and streamlined CI/CD.",
+        "Ran regression flows on Jenkins and Kubernetes for safe, repeatable deployments."
       ],
-      "stack": ["TypeScript", "React", "Node.js", "Python", "TODO"]
+      "stack": [
+        "Java",
+        "Spring Boot",
+        "Neo4j",
+        "Jenkins",
+        "Kubernetes",
+        "Docker",
+        "Maven"
+      ]
+    },
+    {
+      "id": "governance",
+      "company": "National Governance Body",
+      "role": "Full-Stack Developer & Automation Engineer",
+      "period": "2020 – 2022",
+      "location": "Israel",
+      "summary": "Built and maintained internal web platforms for a national-scale organization — Node.js services, SQL data layers, React front-ends and test automation.",
+      "highlights": [
+        "Developed internal full-stack web applications (Node.js, Express, React) used across multiple departments to streamline daily workflows.",
+        "Shipped a new web platform end-to-end for a large-scale candidate assessment program, from data model to UI.",
+        "Automated web processes with Selenium and wrote complex SQL to validate data integrity across interconnected systems.",
+        "Led a team of 5 in system testing & analysis and onboarded new engineers."
+      ],
+      "stack": [
+        "JavaScript",
+        "TypeScript",
+        "Node.js",
+        "Express",
+        "React",
+        "SQL",
+        "Selenium"
+      ]
     }
   ],
   "education": [
     {
-      "id": "cs",
-      "institution": "TODO: University",
+      "id": "tau",
+      "institution": "Tel Aviv University",
       "degree": "B.Sc. Computer Science",
-      "period": "YYYY – YYYY",
-      "notes": "TODO: relevant courses, GPA, projects"
+      "period": "2025 – 2027 (expected)",
+      "notes": "Previously studied Computer Science at The Open University of Israel."
     }
   ],
   "services": [
@@ -77,42 +102,94 @@
       "icon": "server",
       "title": "High-Scale Backend & APIs",
       "description": "Production-grade services, data models and integrations — designed the way they're built at eBay: observable, tested and ready for real traffic.",
-      "deliverables": ["REST / GraphQL APIs", "Data modeling & migrations", "Queues, caching & performance tuning", "CI/CD & cloud deployment"]
+      "deliverables": [
+        "REST / GraphQL APIs",
+        "Data modeling & migrations",
+        "Queues, caching & performance tuning",
+        "CI/CD & cloud deployment"
+      ]
     },
     {
       "id": "mvp",
       "icon": "rocket",
       "title": "End-to-End Mobile & Web MVPs",
       "description": "From idea to app-store-ready product. One engineer owning frontend, backend and infra means fewer handoffs and a faster path to your first users.",
-      "deliverables": ["React / Next / Astro web apps", "React Native (Expo) apps", "Auth, payments & analytics", "Launch-ready in weeks"]
+      "deliverables": [
+        "React / Next / Astro web apps",
+        "React Native (Expo) apps",
+        "Auth, payments & analytics",
+        "Launch-ready in weeks"
+      ]
     },
     {
       "id": "extensions",
       "icon": "puzzle",
       "title": "Custom Browser Extensions & Automation",
       "description": "Chrome extensions, scrapers and workflow bots that bend existing websites to your team's needs — the same craft behind HeatReel.",
-      "deliverables": ["Chrome / Firefox MV3 extensions", "DOM automation & data extraction", "Internal tooling & bots", "Store publishing & updates"]
+      "deliverables": [
+        "Chrome / Firefox MV3 extensions",
+        "DOM automation & data extraction",
+        "Internal tooling & bots",
+        "Store publishing & updates"
+      ]
     }
   ],
   "creative": {
-    "bio": "When I'm not shipping code I'm making noise: classically-rooted piano, groove-first drums and campfire guitar. Game jams are where the two worlds meet — 48 hours, a theme, and no excuses.",
+    "bio": "When I'm not shipping code I'm making noise: piano, drums and guitar. Game jams are where the two worlds meet — a theme, a deadline, and a team of friends with no excuses.",
     "venues": {
       "title": "Two rooms that taught me to listen",
       "note": "Late nights at North Gate Jazz Co-op in Chiang Mai and the Blue Note shaped how I build: listen first, leave space for the other players, and ship the take even when it isn't perfect.",
       "places": [
-        { "name": "North Gate Jazz Co-op", "city": "Chiang Mai, Thailand", "detail": "Since 2007" },
-        { "name": "Blue Note Jazz Club", "city": "TODO: city", "detail": "TODO: your Blue Note memory" }
+        {
+          "name": "North Gate Jazz Co-op",
+          "city": "Chiang Mai, Thailand",
+          "detail": "Since 2007"
+        },
+        {
+          "name": "Blue Note Jazz Club",
+          "city": "TODO: city",
+          "detail": "TODO: your Blue Note memory"
+        }
       ]
     },
     "instruments": [
-      { "id": "piano", "name": "Piano", "emoji": "🎹", "youtubeId": "", "caption": "TODO: piece / cover title" },
-      { "id": "drums", "name": "Drums", "emoji": "🥁", "youtubeId": "", "caption": "TODO: drum cover title" },
-      { "id": "guitar", "name": "Guitar", "emoji": "🎸", "youtubeId": "", "caption": "TODO: guitar session title" }
+      {
+        "id": "piano",
+        "name": "Piano",
+        "emoji": "🎹",
+        "youtubeId": "",
+        "caption": "Clip coming soon"
+      },
+      {
+        "id": "drums",
+        "name": "Drums",
+        "emoji": "🥁",
+        "youtubeId": "",
+        "caption": "Clip coming soon"
+      },
+      {
+        "id": "guitar",
+        "name": "Guitar",
+        "emoji": "🎸",
+        "youtubeId": "",
+        "caption": "Clip coming soon"
+      }
     ],
     "gameJams": [
-      { "id": "jam-1", "title": "TODO: Jam Game #1", "jam": "Global Game Jam", "theme": "TODO", "url": "https://itch.io/", "hours": 48 },
-      { "id": "jam-2", "title": "TODO: Jam Game #2", "jam": "Ludum Dare", "theme": "TODO", "url": "https://itch.io/", "hours": 72 },
-      { "id": "jam-3", "title": "TODO: Jam Game #3", "jam": "GMTK Game Jam", "theme": "TODO", "url": "https://itch.io/", "hours": 48 }
+      {
+        "id": "high-noon",
+        "title": "HIGH NOON",
+        "jam": "Mini Jam 206: Western",
+        "note": "Browser · 4-person team",
+        "url": "https://c0nflex.itch.io/highnoon"
+      },
+      {
+        "id": "reincarnated-cat",
+        "title": "That Time I Got Reincarnated As A Cat!?!",
+        "jam": "SpeedJam #5",
+        "note": "Browser · 4-person team",
+        "url": "https://ogfenix.itch.io/i-got-reincarnated-as-a-cat"
+      }
     ]
   }
 }

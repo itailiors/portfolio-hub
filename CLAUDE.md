@@ -3,7 +3,7 @@
 Personal site with two jobs:
 
 1. **Product ecosystem hub (B2C)** — users of HeatReel (Chrome extension), PsychoScanner (React Native app) and the Unity games discover and cross-install the other products.
-2. **Freelance / hiring funnel (B2B)** — shows founders and hiring managers end-to-end product ability, backed by eBay, Angor.io and military full-stack experience.
+2. **Freelance / hiring funnel (B2B)** — shows founders and hiring managers end-to-end product ability, backed by Angor.io, eBay and full-stack work for a national governance body (keep that role in general language — no organization names or specifics).
 
 ## Stack
 

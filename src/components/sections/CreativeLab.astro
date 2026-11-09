@@ -5,7 +5,7 @@ import PosterSection from "./PosterSection.astro";
 import JazzPosterArt from "../JazzPosterArt";
 
 const { creative } = profile;
-const paraglider = ecosystem.products.find((p) => p.id === "paraglider");
+const paraglider = ecosystem.products.find((p) => p.id === "paraglideslop");
 const instrumentColor: Record<string, string> = { piano: "#D9231A", drums: "#E85D1A", guitar: "#1B4596" };
 ---
 
@@ -78,6 +78,10 @@ const instrumentColor: Record<string, string> = { piano: "#D9231A", drums: "#E85
     <div class="poster-frame card-night p-6 md:col-span-3">
       <p class="eyebrow">Off the keyboard</p>
       <p class="mt-3 font-serif text-xl italic leading-snug text-cream">“{creative.bio}”</p>
+      <div class="mt-5 flex flex-wrap gap-2 font-mono text-[11px] uppercase tracking-[0.1em]">
+        <a href={profile.contact.youtube} target="_blank" rel="noopener noreferrer" class="border border-cream/25 px-2.5 py-1 text-cream-muted transition hover:border-cream hover:text-cream">YouTube ↗</a>
+        <a href={profile.contact.instagram} target="_blank" rel="noopener noreferrer" class="border border-cream/25 px-2.5 py-1 normal-case text-cream-muted transition hover:border-cream hover:text-cream">@it.is.lio ↗</a>
+      </div>
     </div>
 
     <!-- Game jams list -->
@@ -91,7 +95,7 @@ const instrumentColor: Record<string, string> = { piano: "#D9231A", drums: "#E85
                 <span class="min-w-0">
                   <span class="block truncate font-medium">{g.title}</span>
                   <span class="block font-mono text-[11px] text-cream-subtle">
-                    {g.jam} · {g.hours}h
+                    {g.jam} · {g.note}
                   </span>
                 </span>
                 <span class="text-cream-subtle" aria-hidden="true">
