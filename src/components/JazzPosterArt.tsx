@@ -30,8 +30,23 @@ function rng(seed: string) {
   };
 }
 
+/** Card motif: Bauhaus disc + bars (default), piano keys & pulses, or chaotic slants. */
+export type ArtMotif = "bauhaus" | "keys" | "slant";
+
+const MOTIF_BY_PRODUCT: Record<string, ArtMotif> = {
+  "the-woodshed": "keys",
+  "bet-on-dave": "slant",
+};
+
+/** Motif for a product id (falls back to the Bauhaus motif). */
+export function motifFor(productId: string): ArtMotif {
+  return MOTIF_BY_PRODUCT[productId] ?? "bauhaus";
+}
+
 interface Props {
   variant?: "hero" | "card";
+  /** Card variant only. */
+  motif?: ArtMotif;
   /** Varies stripe / bar rhythm. */
   seed?: string;
   /** Lead color for card variant. */
@@ -45,6 +60,7 @@ interface Props {
 
 export default function JazzPosterArt({
   variant = "hero",
+  motif = "bauhaus",
   seed = "north-gate",
   accent = P.terra,
   surface = "night",
@@ -52,10 +68,120 @@ export default function JazzPosterArt({
   label = "Geometric jazz poster artwork",
   animate = true,
 }: Props) {
-  return variant === "hero" ? (
-    <HeroArt className={className} label={label} animate={animate} />
-  ) : (
-    <CardArt seed={seed} accent={accent} surface={surface} className={className} label={label} animate={animate} />
+  if (variant === "hero") return <HeroArt className={className} label={label} animate={animate} />;
+  const common = { seed, surface, className, label, animate };
+  if (motif === "keys") return <KeysArt {...common} />;
+  if (motif === "slant") return <SlantArt {...common} />;
+  return <CardArt {...common} accent={accent} />;
+}
+
+type MotifProps = { seed: string; surface: "night" | "paper"; className?: string; label: string; animate: boolean };
+
+/** The Woodshed: a keyboard in ivory & cobalt with audio pulses rippling off a struck chord. */
+function KeysArt({ seed, surface, className, label, animate }: MotifProps) {
+  const r = rng(seed);
+  const ivory = "#F6EFDF";
+  const onPaper = surface === "paper";
+  const bg = onPaper ? P.paperWarm : P.char;
+  const whiteW = 20;
+  const whites = Array.from({ length: 11 }, (_, i) => i * whiteW);
+  // black keys follow the C-D-E / F-G-A-B pattern (no black after E and B)
+  const blackAfter = [0, 1, 3, 4, 5, 7, 8, 10];
+  const lit = new Set([2, 4, 6, 9]); // a "voicing" lit in cobalt
+  const pulses = [24, 44, 66, 90, 116];
+  const wave = Array.from({ length: 30 }, (_, i) => {
+    const x = 230 + i * 5.6;
+    const y = 112 + Math.sin(i * 0.9) * (6 + r() * 26) * Math.exp(-i / 22);
+    return `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`;
+  }).join(" ");
+
+  return (
+    <svg viewBox="0 0 400 225" className={className} role="img" aria-label={label} preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id={`jpa-k-${seed}`}>
+          <rect x="210" width="190" height="225" />
+        </clipPath>
+      </defs>
+      <rect width="400" height="225" fill={bg} />
+      {/* keyboard */}
+      <g transform="translate(-4 34)">
+        {whites.map((x, i) => (
+          <rect key={x} x={x + 6} y="0" width={whiteW - 2} height="150" fill={ivory} stroke={P.ink} strokeOpacity="0.25" />
+        ))}
+        {blackAfter.map((i) => (
+          <rect key={`b${i}`} x={i * whiteW + 6 + whiteW - 5} y="0" width="9" height="90" fill={P.cobalt} />
+        ))}
+        {/* the voicing being played: cobalt dots on the struck keys */}
+        {[...lit].map((i) => (
+          <circle key={`l${i}`} cx={i * whiteW + 6 + (whiteW - 2) / 2} cy="128" r="5" fill={P.cobalt} />
+        ))}
+      </g>
+      {/* cobalt stage with pulses */}
+      <rect x="210" width="190" height="225" fill={P.cobalt} />
+      <g clipPath={`url(#jpa-k-${seed})`} fill="none" stroke={ivory}>
+        {pulses.map((rad, i) => (
+          <circle
+            key={rad}
+            cx="214"
+            cy="112"
+            r={rad}
+            strokeWidth={i === 0 ? 3 : 1.4}
+            strokeOpacity={1 - i * 0.16}
+            className={animate ? "pulse-ring" : undefined}
+            style={animate ? { animationDelay: `${i * 0.35}s` } : undefined}
+          />
+        ))}
+        <path d={wave} strokeWidth="2" strokeLinejoin="round" />
+      </g>
+      <rect x="0" y="200" width="90" height="25" fill={P.crimson} />
+      <circle cx="372" cy="28" r="9" fill={ivory} />
+    </svg>
+  );
+}
+
+/** Bet on Dave: chaotic slanted crimson/orange bars with a tumbling body and a betting-slip trajectory. */
+function SlantArt({ seed, surface, className, label, animate }: MotifProps) {
+  const r = rng(seed);
+  const bg = surface === "paper" ? P.paperWarm : P.night;
+  const colors = [P.crimson, P.terra, P.crimson, P.terra, P.cream];
+  const bars = Array.from({ length: 16 }, () => ({
+    x: Math.round(r() * 400),
+    y: Math.round(-20 + r() * 220),
+    w: 70 + Math.round(r() * 170),
+    h: 5 + Math.round(r() * 16),
+    a: Math.round(-58 + r() * 116),
+    c: colors[Math.floor(r() * colors.length)],
+  }));
+
+  return (
+    <svg viewBox="0 0 400 225" className={className} role="img" aria-label={label} preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="225" fill={bg} />
+      <polygon points="250,0 400,0 400,225 170,225" fill={P.char} />
+      {bars.map((b, i) => (
+        <rect key={i} x={b.x - b.w / 2} y={b.y} width={b.w} height={b.h} fill={b.c} opacity={b.c === P.cream ? 0.8 : 1} transform={`rotate(${b.a} ${b.x} ${b.y})`} />
+      ))}
+      {/* trajectory of a launched ragdoll */}
+      <path d="M30 200 Q150 -30 330 150" fill="none" stroke={P.cream} strokeWidth="1.5" strokeDasharray="6 6" strokeOpacity="0.7" />
+      {/* tumbling geometric body */}
+      <g transform="translate(250 92) rotate(-28)">
+      <g className={animate ? "tumble" : undefined}>
+        <rect x="-11" y="-14" width="22" height="30" fill={P.cream} />
+        <circle cx="0" cy="-24" r="9" fill={P.cream} />
+        <rect x="-30" y="-12" width="19" height="6" fill={P.terra} transform="rotate(-30 -11 -9)" />
+        <rect x="11" y="-12" width="19" height="6" fill={P.terra} transform="rotate(40 11 -9)" />
+        <rect x="-10" y="16" width="7" height="22" fill={P.crimson} transform="rotate(20 -6 16)" />
+        <rect x="3" y="16" width="7" height="22" fill={P.crimson} transform="rotate(-35 6 16)" />
+      </g>
+      </g>
+      {/* odds chip */}
+      <g transform="translate(352 40) rotate(12)">
+        <rect x="-26" y="-14" width="52" height="28" fill={P.crimson} />
+        <text x="0" y="5" textAnchor="middle" fontFamily="'Bebas Neue', sans-serif" fontSize="17" fill="#FFF8EC">
+          7 : 2
+        </text>
+      </g>
+      <rect x="0" y="200" width="90" height="25" fill={P.terra} />
+    </svg>
   );
 }
 

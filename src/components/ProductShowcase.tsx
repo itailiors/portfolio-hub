@@ -1,5 +1,5 @@
-import { useState, type ReactNode } from "react";
-import JazzPosterArt from "./JazzPosterArt";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import JazzPosterArt, { motifFor } from "./JazzPosterArt";
 import type { EcosystemManifest, EcosystemProduct, ProductCategory } from "../types/ecosystem";
 
 type ViewMode = "user" | "engineering";
@@ -171,7 +171,8 @@ function ProductCard({
   onFlip: () => void;
 }) {
   const accent = p.accentColor ?? "#D9231A";
-  const surface: Surface = p.category === "live-product" ? "paper" : "night";
+  // Card surface follows each product's own brand (set in the manifest); night by default.
+  const surface: Surface = p.surface === "paper" ? "paper" : "night";
   const t = THEME[surface];
   const isEng = mode === "engineering";
 
@@ -271,27 +272,65 @@ function Face({ active, children }: { active: boolean; children: ReactNode }) {
   );
 }
 
+type ImageState = "loading" | "loaded" | "error";
+
+/**
+ * "Gallery frame" media slot.
+ * The product's SVG poster art is always rendered as the base layer, which reserves
+ * the 16:9 box. If `imageUrl` is set, the screenshot is layered on top and fades in
+ * only once it has actually decoded. On a 404 or a broken file it is removed and the
+ * art stays visible, so a missing .jpg never shows a broken image or shifts layout.
+ */
 function MediaSlot({ product: p, surface }: { product: EcosystemProduct; surface: Surface }) {
-  if (p.media?.src && (p.media.type === "image" || p.media.type === "gif")) {
-    return <img src={p.media.src} alt={`${p.name} preview`} loading="lazy" className="block aspect-video w-full object-cover" />;
-  }
   if (p.media?.src && p.media.type === "video") {
     return <video src={p.media.src} autoPlay muted loop playsInline className="block aspect-video w-full object-cover" />;
   }
-  // Placeholder until a real demo video/gif is set in ecosystem.json → media
+  const src = p.imageUrl || (p.media?.src && (p.media.type === "image" || p.media.type === "gif") ? p.media.src : undefined);
+  return <GalleryFrame product={p} surface={surface} src={src} />;
+}
+
+function GalleryFrame({ product: p, surface, src }: { product: EcosystemProduct; surface: Surface; src?: string }) {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [state, setState] = useState<ImageState>(src ? "loading" : "error");
+
+  useEffect(() => {
+    setState(src ? "loading" : "error");
+    // The <img> is server-rendered, so it may finish (or fail) before React hydrates and
+    // attaches onLoad/onError. Read its final state directly in that case.
+    const img = imgRef.current;
+    if (src && img?.complete) setState(img.naturalWidth > 0 ? "loaded" : "error");
+  }, [src]);
+
   return (
     <div className="relative">
       <JazzPosterArt
         variant="card"
+        motif={motifFor(p.id)}
         seed={p.id}
         accent={p.accentColor ?? "#D9231A"}
         surface={surface}
         className="block aspect-video w-full"
-        label={`${p.name} artwork — demo video placeholder`}
+        label={`${p.name} artwork`}
+        animate={state !== "loaded"}
       />
-      <span className="absolute bottom-1.5 right-2 bg-night/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-cream-muted">
-        demo video slot
-      </span>
+      {src && state !== "error" && (
+        <img
+          ref={imgRef}
+          src={src}
+          alt={`${p.name} screenshot`}
+          loading="lazy"
+          decoding="async"
+          data-state={state}
+          onLoad={() => setState("loaded")}
+          onError={() => setState("error")}
+          className="media-img absolute inset-0 h-full w-full object-cover object-center"
+        />
+      )}
+      {state !== "loaded" && (
+        <span className="absolute bottom-1.5 right-2 bg-night/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-cream-muted">
+          screenshot coming soon
+        </span>
+      )}
     </div>
   );
 }

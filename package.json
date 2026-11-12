@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "art": "node scripts/art/psychoscanner.mjs && node scripts/art/idea5.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.4",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "typescript": "^6.0.3"

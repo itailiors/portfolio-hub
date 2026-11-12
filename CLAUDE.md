@@ -2,7 +2,7 @@
 
 Personal site with two jobs:
 
-1. **Product ecosystem hub (B2C)** — users of HeatReel (Chrome extension), PsychoScanner (React Native app) and the Unity games discover and cross-install the other products.
+1. **Product ecosystem hub (B2C)** — users of The Woodshed (jazz practice web app), HeatReel (Chrome extension), PsychoScanner (React Native app), Idea5 (PWA) and the Unity games discover and cross-install the other products.
 2. **Freelance / hiring funnel (B2B)** — shows founders and hiring managers end-to-end product ability, backed by Angor.io, eBay and full-stack work for a national governance body (keep that role in general language — no organization names or specifics).
 
 ## Stack
@@ -65,7 +65,7 @@ Type: `font-display` (Bebas Neue) for headers and vertical rails, `font-serif` i
 Patterns:
 - **Poster frame** — `.poster-frame` adds a 1px border plus `+` registration marks at the corners via `::before` (inset −7px; don't put it inside `overflow-hidden` parents). Add `.on-paper` on cream surfaces.
 - **Side rails** — wrap sections in `PosterSection.astro` with `number` + `rail` (`01 LIVE PRODUCTS`, `02 ARCHITECTURE`, `03 CREATIVE CO-OP`). On `lg+` it renders vertical outlined Bebas lettering overlapped by a crimson Playfair numeral; below `lg` it collapses into the eyebrow line, so there's no horizontal overflow.
-- **Surfaces** — live products print on paper; in-progress/games sit on night. CTA text color is picked automatically by `readableOn(accent)`.
+- **Surfaces** — each card matches its product's own brand via the optional manifest field `surface` (`"paper"` for The Woodshed; everything else, including HeatReel, defaults to `"night"`). CTA text color is picked automatically by `readableOn(accent)`.
 - Sharp corners everywhere (no rounded pills) except device mockups. Product `accentColor` values in the manifest stay within the palette.
 
 ## `ecosystem.json` schema (schemaVersion 1)
@@ -101,6 +101,8 @@ Patterns:
       "platforms": ["chrome" | "ios" | "android" | "web" | "windows" | "api" | "mobile"],
       "icon": "emoji",
       "accentColor": "#rrggbb",
+      "surface": "night" | "paper",  // optional card surface matching the product's brand (default night)
+      "imageUrl": "/images/<name>.jpg", // screenshot; optional — see "Product images" below
       "media": { "type": "placeholder" | "image" | "gif" | "video" | "youtube", "src": "" }
     }
   ]
@@ -114,6 +116,16 @@ Patterns:
 - Adding fields is non-breaking; removing/renaming required fields requires bumping `schemaVersion` and updating `src/types/ecosystem.ts` and the local types in `EcosystemDrawer.tsx`.
 - Keep `ctaUrl` free of UTM params.
 - Replace `https://example.com` placeholders (here, in `creator`, in `astro.config.mjs` `site`, and `DEFAULT_MANIFEST_URL` in `EcosystemDrawer.tsx`) once the domain is live.
+
+## Product images ("gallery frame")
+
+Current lineup, in display order: `the-woodshed` (main highlight), `heatreel`, `psychoscanner`, `bet-on-dave`, `idea5`.
+
+- Images live in `public/images/` at each product's `imageUrl`: `woodshed.jpg` and `heatreel.png` (real screenshots), `psychoscanner.svg` and `idea5.svg` (generated sketch illustrations, see below), `dave.jpg` (not added yet → SVG fallback). 16:9 crops look best; they're shown `object-cover`, centered. Raster screenshots are dimmed slightly (`brightness(0.86)`) until the card is hovered so bright UIs don't glare on the night canvas; `.svg` illustrations are exempt.
+- **Sketch illustrations** are generated, not hand-edited: `npm run art` runs `scripts/art/psychoscanner.mjs` (over-the-shoulder phone scanning a bubble sheet, score 142/150) and `scripts/art/idea5.mjs` (thinker on a flying triangular pencil past the Great Wall). Shared helpers in `scripts/art/sketch.mjs` give the pencil look: every layer is drawn twice through `feTurbulence` + `feDisplacementMap` filters (wobble + faint offset re-trace) with hatching patterns for shading. Output is deterministic (seeded PRNG). Edit the script, rerun `npm run art`, rebuild.
+- The card always renders the product's SVG art (`JazzPosterArt` card variant) as the base layer. The screenshot is layered on top and fades in only after it decodes. A 404 or broken file triggers `onError` (or is detected after hydration via `img.complete && naturalWidth === 0`), and the art stays visible, so layout never shifts.
+- `index.astro` also drops local `imageUrl`s whose file doesn't exist at build time, so missing screenshots aren't requested at all. Rebuild after adding images.
+- Art motifs per product live in `MOTIF_BY_PRODUCT` in `JazzPosterArt.tsx`: `keys` (ivory & cobalt piano keys + audio pulses, The Woodshed), `slant` (chaotic crimson/orange slants, Bet on Dave), default `bauhaus` (half disc + equalizer bars).
 
 ## Dropping in the full CV
 

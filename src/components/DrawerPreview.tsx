@@ -9,7 +9,7 @@ interface Props {
 const HOSTS = [
   { id: "heatreel", label: "HeatReel", surface: "Chrome extension popup", frame: "browser" as const },
   { id: "psychoscanner", label: "PsychoScanner", surface: "React Native app", frame: "phone" as const },
-  { id: "paraglideslop", label: "ParaglideSlop", surface: "Game menu overlay", frame: "browser" as const },
+  { id: "the-woodshed", label: "The Woodshed", surface: "Web app sidebar", frame: "browser" as const },
 ];
 
 const NOTES = (hostId: string) => [

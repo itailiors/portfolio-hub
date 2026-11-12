@@ -32,6 +32,10 @@ export interface EcosystemProduct {
   platforms?: string[];
   icon?: string;
   accentColor?: string;
+  /** Card surface matching the product's own brand. Defaults to "night". */
+  surface?: "night" | "paper";
+  /** Screenshot path or URL. Optional: the UI falls back to generated SVG art if missing or broken. */
+  imageUrl?: string;
   media?: ProductMedia;
 }
 

@@ -179,6 +179,34 @@
     transform-origin: bottom;
     animation: var(--animate-eq);
   }
+  .pulse-ring {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pulse-ring 2.6s ease-in-out infinite;
+  }
+  .tumble {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: tumble 3.2s ease-in-out infinite alternate;
+  }
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  @keyframes tumble {
+    from { transform: rotate(-10deg); }
+    to { transform: rotate(14deg); }
+  }
+
+  /* Product media: real screenshot over the SVG fallback */
+  .media-img {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  /* Screenshots sit slightly dimmed on the night canvas (bright UIs otherwise glare) and lift on hover */
+  .media-img[data-state="loaded"] { opacity: 1; filter: brightness(0.86) saturate(0.95); transition: opacity 0.4s ease, filter 0.3s ease; }
+  article:hover .media-img[data-state="loaded"],
+  .media-img[src$=".svg"][data-state="loaded"] { filter: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
