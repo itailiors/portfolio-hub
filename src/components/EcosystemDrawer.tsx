@@ -17,8 +17,8 @@
  */
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 
-export const ECOSYSTEM_DRAWER_VERSION = "1.1.0";
-export const DEFAULT_MANIFEST_URL = "https://example.com/ecosystem.json"; // TODO: set production domain
+export const ECOSYSTEM_DRAWER_VERSION = "1.1.1";
+export const DEFAULT_MANIFEST_URL = "https://itailiors.github.io/portfolio-hub/ecosystem.json";
 
 /* ───────────────────────────── Types ───────────────────────────── */
 
@@ -58,8 +58,12 @@ export function getRecommendations(manifest: DrawerManifest, currentAppId: strin
     .slice(0, limit);
 }
 
-/** Appends UTM params: source = host app, medium = ecosystem-drawer, campaign = target utmTag. */
+/**
+ * Appends UTM params: source = host app, medium = ecosystem-drawer, campaign = target utmTag.
+ * Only http(s) links are tagged; mailto: and other schemes are returned unchanged.
+ */
 export function buildTrackedUrl(url: string, sourceAppId: string, campaign: string, medium = "ecosystem-drawer"): string {
+  if (!/^https?:\/\//i.test(url)) return url;
   try {
     const u = new URL(url);
     u.searchParams.set("utm_source", sourceAppId);

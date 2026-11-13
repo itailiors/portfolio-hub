@@ -10,6 +10,7 @@ import ProductShowcase from "../components/ProductShowcase";
 import DrawerPreview from "../components/DrawerPreview";
 import ecosystemJson from "../../public/ecosystem.json";
 import type { EcosystemManifest } from "../types/ecosystem";
+import { withBase } from "../lib/url";
 
 import { existsSync } from "node:fs";
 import { join } from "node:path";
@@ -20,10 +21,15 @@ const manifest = ecosystemJson as EcosystemManifest;
 // Build-time check: drop local imageUrls whose file isn't in /public yet, so the page
 // doesn't request missing screenshots. Remote URLs (and any image that fails at
 // runtime) are still covered by the client-side onError fallback in ProductShowcase.
-const isMissingLocal = (url?: string) => !!url && url.startsWith("/") && !existsSync(join(process.cwd(), "public", url));
+// Local paths that do exist get the deploy base path (e.g. /portfolio-hub) prepended.
+const isLocal = (url?: string): url is string => !!url && url.startsWith("/");
+const resolveImage = (url?: string) => {
+  if (!isLocal(url)) return url;
+  return existsSync(join(process.cwd(), "public", url)) ? withBase(url) : undefined;
+};
 const ecosystem: EcosystemManifest = {
   ...manifest,
-  products: manifest.products.map((p) => (isMissingLocal(p.imageUrl) ? { ...p, imageUrl: undefined } : p)),
+  products: manifest.products.map((p) => ({ ...p, imageUrl: resolveImage(p.imageUrl) })),
 };
 ---
 

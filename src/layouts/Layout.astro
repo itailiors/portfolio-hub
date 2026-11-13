@@ -1,15 +1,21 @@
 ---
 import "../styles/global.css";
+import { withBase } from "../lib/url";
 
 interface Props {
   title?: string;
   description?: string;
+  /** Keep 404 and other utility pages out of search results. */
+  noindex?: boolean;
 }
 
 const {
   title = "Itai Lior // Software & Jazz Co-op",
-  description = "Independent software & creative co-op: Chrome extensions, mobile apps and games — plus remote backend, MVP and extension contracts.",
+  description = "Full-stack product engineer & indie maker: Chrome extensions, web and mobile apps, and games — plus remote backend, MVP and browser-extension contracts.",
+  noindex = false,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -19,10 +25,17 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0e0d0c" />
+    <meta name="author" content="Itai Lior" />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Itai Lior // Software & Jazz Co-op" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

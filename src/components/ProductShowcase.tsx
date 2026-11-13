@@ -56,7 +56,11 @@ const THEME: Record<Surface, { card: string; frame: string; text: string; muted:
   },
 };
 
+const isWeb = (url: string) => /^https?:\/\//i.test(url);
+
+/** Adds showcase UTM params to http(s) links; mailto: and other schemes pass through untouched. */
 function withUtm(url: string, campaign: string): string {
+  if (!isWeb(url)) return url;
   try {
     const u = new URL(url);
     u.searchParams.set("utm_source", "portfolio");
@@ -215,8 +219,7 @@ function ProductCard({
           <div className="mt-auto flex flex-wrap items-center gap-2 pt-6">
             <a
               href={withUtm(p.ctaUrl, p.utmTag)}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...(isWeb(p.ctaUrl) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               tabIndex={isEng ? -1 : 0}
               className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold transition hover:brightness-110"
               style={{ background: accent, color: readableOn(accent) }}
@@ -244,7 +247,7 @@ function ProductCard({
           <p className={`mt-2 text-sm leading-relaxed ${t.muted}`}>{p.engineeringSpecs.architectureHighlight}</p>
           <p className={`${t.eyebrow} mt-6`}>Metrics</p>
           <p className={`mt-2 font-mono text-xs leading-relaxed ${t.metrics}`}>{p.engineeringSpecs.metrics}</p>
-          <div className="mt-auto pt-6">
+          <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-6">
             <a
               href={hireHref}
               tabIndex={isEng ? 0 : -1}
@@ -252,6 +255,17 @@ function ProductCard({
             >
               Need something like this built? Let's talk. <span aria-hidden>→</span>
             </a>
+            {p.repoUrl && p.repoUrl !== p.ctaUrl && (
+              <a
+                href={p.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                tabIndex={isEng ? 0 : -1}
+                className={`font-mono text-[11px] uppercase tracking-[0.12em] underline-offset-4 hover:underline ${t.text}`}
+              >
+                View source ↗
+              </a>
+            )}
           </div>
         </Face>
       </div>
@@ -325,11 +339,6 @@ function GalleryFrame({ product: p, surface, src }: { product: EcosystemProduct;
           onError={() => setState("error")}
           className="media-img absolute inset-0 h-full w-full object-cover object-center"
         />
-      )}
-      {state !== "loaded" && (
-        <span className="absolute bottom-1.5 right-2 bg-night/80 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-cream-muted">
-          screenshot coming soon
-        </span>
       )}
     </div>
   );

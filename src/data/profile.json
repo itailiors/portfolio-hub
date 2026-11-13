@@ -147,33 +147,15 @@
         },
         {
           "name": "Blue Note Jazz Club",
-          "city": "TODO: city",
-          "detail": "TODO: your Blue Note memory"
+          "city": "",
+          "detail": ""
         }
       ]
     },
     "instruments": [
-      {
-        "id": "piano",
-        "name": "Piano",
-        "emoji": "🎹",
-        "youtubeId": "",
-        "caption": "Clip coming soon"
-      },
-      {
-        "id": "drums",
-        "name": "Drums",
-        "emoji": "🥁",
-        "youtubeId": "",
-        "caption": "Clip coming soon"
-      },
-      {
-        "id": "guitar",
-        "name": "Guitar",
-        "emoji": "🎸",
-        "youtubeId": "",
-        "caption": "Clip coming soon"
-      }
+      "Piano",
+      "Drums",
+      "Guitar"
     ],
     "gameJams": [
       {
@@ -181,7 +163,8 @@
         "title": "HIGH NOON",
         "jam": "Mini Jam 206: Western",
         "note": "Browser · 4-person team",
-        "url": "https://c0nflex.itch.io/highnoon"
+        "url": "https://c0nflex.itch.io/highnoon",
+        "soundtrack": "https://www.youtube.com/watch?v=49E20FcA_vQ"
       },
       {
         "id": "reincarnated-cat",
@@ -189,6 +172,26 @@
         "jam": "SpeedJam #5",
         "note": "Browser · 4-person team",
         "url": "https://ogfenix.itch.io/i-got-reincarnated-as-a-cat"
+      }
+    ],
+    "sessions": [
+      {
+        "id": "skylark",
+        "youtubeId": "gBxOxtPWYME",
+        "title": "Skylark",
+        "note": "Jazz standard"
+      },
+      {
+        "id": "badapaa",
+        "youtubeId": "K1FSsfYDFIY",
+        "title": "badapaa",
+        "note": "First-listen improv"
+      },
+      {
+        "id": "golden",
+        "youtubeId": "MSd3ppWmB9s",
+        "title": "Golden",
+        "note": "KPop Demon Hunters cover"
       }
     ]
   }

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12",
+  "updatedAt": "2026-11-14",
   "creator": {
     "name": "Itai Lior",
     "handle": "itailiors",
-    "portfolioUrl": "https://example.com",
-    "hireUrl": "https://example.com/#hire",
+    "portfolioUrl": "https://itailiors.github.io/portfolio-hub/",
+    "hireUrl": "https://itailiors.github.io/portfolio-hub/#hire",
     "hireBannerText": "Need a custom app or extension? Hire me →"
   },
   "products": [
@@ -15,17 +15,28 @@
       "tagline": "A living lead sheet that teaches you to reharmonize.",
       "category": "live-product",
       "statusBadge": "Live · Web App",
-      "platforms": ["web"],
+      "platforms": [
+        "web"
+      ],
       "icon": "🎹",
       "accentColor": "#1B4596",
       "imageUrl": "/images/woodshed.jpg",
       "consumerDescription": "An advanced interactive jazz practice suite: a Comping Coach that listens to your voicings, an Improv Heatmap that scores your lines, and a Concept Passport dashboard where you earn stamps in all 12 keys.",
       "ctaText": "Open in Browser",
       "ctaUrl": "https://itailiors.github.io/TheWoodshed/",
+      "repoUrl": "https://github.com/itailiors/TheWoodshed",
       "utmTag": "the-woodshed",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["React", "Web Audio API", "Web Workers", "MIDI API"],
+        "stack": [
+          "React",
+          "Web Audio API",
+          "Web Workers",
+          "MIDI API"
+        ],
         "architectureHighlight": "Engineered an interactive reharmonization engine connecting via MIDI expression pedals for dynamic chord complexity. Built a background Web Worker pipeline for traced generation and an \"Engine X-ray\" view, handling state transitions across a global circle-of-fifths memory.",
         "metrics": "Live Practice Dashboard • MIDI Hardware Integrated"
       }
@@ -36,17 +47,28 @@
       "tagline": "Skip to the parts everyone rewatches.",
       "category": "live-product",
       "statusBadge": "Live · Chrome Web Store",
-      "platforms": ["chrome"],
+      "platforms": [
+        "chrome"
+      ],
       "icon": "🔥",
       "accentColor": "#D9231A",
       "imageUrl": "/images/heatreel.png",
       "consumerDescription": "A Chrome extension that auto-generates smart highlight reels on YouTube from the crowd's replay heatmap — with a custom mini-player overlay, keyboard shortcuts (Alt+S, Alt+X), and 1-click emoji-tiered timestamp comments.",
       "ctaText": "Add to Chrome — Free",
       "ctaUrl": "https://chromewebstore.google.com/detail/pljkjcipfkonmhnhfkfjbhjjkbhpfihf",
+      "repoUrl": "https://github.com/itailiors/heatreel",
       "utmTag": "heatreel",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["WXT", "React", "TypeScript", "YouTube DOM / SVG Parser"],
+        "stack": [
+          "WXT",
+          "React",
+          "TypeScript",
+          "YouTube DOM / SVG Parser"
+        ],
         "architectureHighlight": "Parses raw YouTube SVG heatmap path coordinates in real time, computing statistical intensity peaks (mean + standard deviation with a 15% fallback threshold) and syncing custom playback controls directly into the native video player lifecycle.",
         "metrics": "Live on Chrome Web Store • Zero-backend client-side processing"
       }
@@ -57,17 +79,29 @@
       "tagline": "Grade your psychometric practice test in seconds.",
       "category": "in-progress",
       "statusBadge": "Beta · iOS & Android",
-      "platforms": ["ios", "android"],
+      "platforms": [
+        "ios",
+        "android"
+      ],
       "icon": "📝",
       "accentColor": "#174936",
       "imageUrl": "/images/psychoscanner.svg",
       "consumerDescription": "A mobile OMR scanner that grades official Israeli Psychometric Entrance Exam (פסיכומטרי) answer sheets in seconds with your phone camera — supporting 19 official NITE practice exams (2020–2026) and instant 0–150 scaled scoring.",
-      "ctaText": "Join the Beta",
-      "ctaUrl": "https://example.com/psychoscanner",
+      "ctaText": "Request Beta Access",
+      "ctaUrl": "mailto:itaispam67@gmail.com?subject=PsychoScanner%20beta%20access",
       "utmTag": "psychoscanner",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["React Native (Expo)", "Python FastAPI", "OpenCV", "SQLite", "PDF Parsing"],
+        "stack": [
+          "React Native (Expo)",
+          "Python FastAPI",
+          "OpenCV",
+          "SQLite",
+          "PDF Parsing"
+        ],
         "architectureHighlight": "Custom OpenCV pipeline featuring anchor detection, perspective and paper-bend flattening, adaptive illumination normalization for dim no-flash B&W printouts, and lone-mark leniency — paired with an automated NITE PDF answer-key parser (parse_nite_pdfs.py).",
         "metrics": "19 Official Exams Indexed • Sub-second OMR Grading Pipeline"
       }
@@ -78,7 +112,9 @@
       "tagline": "Ragdoll stunts. Your friends bet on how you fail.",
       "category": "game",
       "statusBadge": "In development · Multiplayer",
-      "platforms": ["windows"],
+      "platforms": [
+        "windows"
+      ],
       "icon": "🎲",
       "accentColor": "#E85D1A",
       "imageUrl": "/images/dave.jpg",
@@ -86,9 +122,17 @@
       "ctaText": "Follow on itch.io",
       "ctaUrl": "https://itch.io/profile/ogfenix",
       "utmTag": "bet-on-dave",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["Unity 3D", "C#", "FishNet Netcode", "Steamworks.NET"],
+        "stack": [
+          "Unity 3D",
+          "C#",
+          "FishNet Netcode",
+          "Steamworks.NET"
+        ],
         "architectureHighlight": "Architected a host-authoritative state machine and core C# betting engine to synchronize physics-driven ragdoll mechanics and real-time spectator wagering over FishNet.",
         "metrics": "Multiplayer Netcode Prototype • Edit-Mode Test Suites Passing"
       }
@@ -99,17 +143,30 @@
       "tagline": "Five minutes a day. One idea at a time.",
       "category": "in-progress",
       "statusBadge": "Open source · PWA",
-      "platforms": ["web", "mobile"],
+      "platforms": [
+        "web",
+        "mobile"
+      ],
       "icon": "💡",
       "accentColor": "#D9231A",
       "imageUrl": "/images/idea5.svg",
       "consumerDescription": "An offline-first phone app for a daily 5-minute idea ritual: a countdown that never interrupts you, a Markdown notepad, voice notes, streaks, searchable history and a daily calendar reminder. No account and no backend — everything stays on your device.",
       "ctaText": "View on GitHub",
       "ctaUrl": "https://github.com/itailiors/Idea5",
+      "repoUrl": "https://github.com/itailiors/Idea5",
       "utmTag": "idea5",
-      "media": { "type": "placeholder", "src": "" },
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
       "engineeringSpecs": {
-        "stack": ["React", "TypeScript", "Vite PWA", "IndexedDB (Dexie)", "MediaRecorder API"],
+        "stack": [
+          "React",
+          "TypeScript",
+          "Vite PWA",
+          "IndexedDB (Dexie)",
+          "MediaRecorder API"
+        ],
         "architectureHighlight": "Drift-free timer modeled as accumulated time plus performance.now() deltas, so it survives throttled background tabs; debounced autosave with stale-draft recovery; voice clips stored as Blobs in Dexie with per-browser MIME detection; and zip backup/restore plus .ics reminder export — all on-device, with no server.",
         "metrics": "Offline-first PWA • Zero backend • Unit-tested timer, streak & backup logic"
       }

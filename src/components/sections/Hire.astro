@@ -1,6 +1,7 @@
 ---
 import profile from "../../data/profile.json";
 import Monogram from "../Monogram.astro";
+import { withBase } from "../../lib/url";
 
 const { contact } = profile;
 const socials = [
@@ -69,7 +70,7 @@ const bookHref = contact.calendly || `mailto:${contact.email}?subject=Project%20
               </li>
             ))
           }
-          <li><a href="/ecosystem.json" class="normal-case transition hover:text-cream">ecosystem.json</a></li>
+          <li><a href={withBase("/ecosystem.json")} class="normal-case transition hover:text-cream">ecosystem.json</a></li>
         </ul>
       </div>
     </footer>

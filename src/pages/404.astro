@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Monogram from "../components/Monogram.astro";
+import { withBase } from "../lib/url";
+
+const home = withBase("/");
+---
+
+<Layout title="404 · Wrong changes — Itai Lior" description="This page doesn't exist." noindex>
+  <main class="grid min-h-screen place-items-center px-4 py-16">
+    <div class="poster-frame w-full max-w-xl bg-char p-8 text-center sm:p-12">
+      <a href={home} class="inline-block text-cream" aria-label="Back to the homepage">
+        <Monogram size={72} />
+      </a>
+      <p class="numeral mt-8 text-[96px] sm:text-[128px]">404</p>
+      <h1 class="mt-4 font-display text-4xl tracking-wide sm:text-5xl">Wrong changes.</h1>
+      <p class="mx-auto mt-3 max-w-sm text-cream-muted">
+        You went looking for a chord that isn't on this lead sheet. Let's take it from the top.
+      </p>
+      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href={home} class="btn-crimson px-6 py-3 text-sm">Back to the top ↺</a>
+        <a href={`${home}#products`} class="btn-ghost px-6 py-3 text-sm">See the products →</a>
+      </div>
+    </div>
+  </main>
+</Layout>

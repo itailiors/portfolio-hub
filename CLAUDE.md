@@ -10,12 +10,13 @@ Personal site with two jobs:
 - **Astro 7** (static output) + **@astrojs/react** islands (React 19)
 - **Tailwind CSS 4** via `@tailwindcss/vite` — no `tailwind.config`; design tokens live in `@theme` in `src/styles/global.css`
 - TypeScript 6 (strict) — `@astrojs/check` does not support TS 7 yet, don't upgrade past `^6`
-- Deploy target: **Vercel** (`vercel.json` sets CORS headers on `/ecosystem.json`)
+- Deploy target: **GitHub Pages** at https://itailiors.github.io/portfolio-hub/ via `.github/workflows/deploy.yml` (every push to `main` runs `npm ci && npm run build` and deploys `dist/`). GitHub Pages already serves `Access-Control-Allow-Origin: *`, so `/ecosystem.json` is fetchable from the extension and apps. `vercel.json` is kept only in case the site moves to Vercel.
+- **Base path:** `astro.config.mjs` sets `site` + `base: "/portfolio-hub"`. Any root-relative URL rendered in markup (favicon, images, `/ecosystem.json`) must go through `withBase()` from `src/lib/url.ts`; `index.astro` applies it to manifest `imageUrl`s. Moving to a custom domain = change `site`, set `base: "/"`, and update the URLs in `ecosystem.json` `creator` and `DEFAULT_MANIFEST_URL`.
 
 ## Commands
 
 ```bash
-npm run dev       # http://localhost:4321
+npm run dev       # http://localhost:4321/portfolio-hub/  (note the base path)
 npm run check     # astro check — must be 0 errors / 0 warnings
 npm run build     # astro check && astro build → dist/
 npm run preview
@@ -65,7 +66,7 @@ Type: `font-display` (Bebas Neue) for headers and vertical rails, `font-serif` i
 Patterns:
 - **Poster frame** — `.poster-frame` adds a 1px border plus `+` registration marks at the corners via `::before` (inset −7px; don't put it inside `overflow-hidden` parents). Add `.on-paper` on cream surfaces.
 - **Side rails** — wrap sections in `PosterSection.astro` with `number` + `rail` (`01 LIVE PRODUCTS`, `02 ARCHITECTURE`, `03 CREATIVE CO-OP`). On `lg+` it renders vertical outlined Bebas lettering overlapped by a crimson Playfair numeral; below `lg` it collapses into the eyebrow line, so there's no horizontal overflow.
-- **Surfaces** — each card matches its product's own brand via the optional manifest field `surface` (`"paper"` for The Woodshed; everything else, including HeatReel, defaults to `"night"`). CTA text color is picked automatically by `readableOn(accent)`.
+- **Surfaces** — each card matches its product's own brand via the optional manifest field `surface` (all products currently use the default `"night"`; set `"paper"` for a product whose own UI is cream). CTA text color is picked automatically by `readableOn(accent)`.
 - Sharp corners everywhere (no rounded pills) except device mockups. Product `accentColor` values in the manifest stay within the palette.
 
 ## `ecosystem.json` schema (schemaVersion 1)
@@ -90,7 +91,8 @@ Patterns:
       "statusBadge": "string",       // e.g. "Live · Chrome Web Store"
       "consumerDescription": "string",
       "ctaText": "string",
-      "ctaUrl": "https://…",         // store / landing page (no UTM params — they're appended at runtime)
+      "ctaUrl": "https://…",         // store / landing page, or mailto: (no UTM params — appended at runtime to http(s) links only)
+      "repoUrl": "https://github.com/…", // optional public source; shown as "View source" in the engineering view
       "utmTag": "string",            // used as utm_campaign
       "engineeringSpecs": {
         "stack": ["string"],
@@ -115,7 +117,7 @@ Patterns:
 - Never rename or remove an `id` that has shipped in a host app — mark it differently instead.
 - Adding fields is non-breaking; removing/renaming required fields requires bumping `schemaVersion` and updating `src/types/ecosystem.ts` and the local types in `EcosystemDrawer.tsx`.
 - Keep `ctaUrl` free of UTM params.
-- Replace `https://example.com` placeholders (here, in `creator`, in `astro.config.mjs` `site`, and `DEFAULT_MANIFEST_URL` in `EcosystemDrawer.tsx`) once the domain is live.
+- Production URLs live in three places that must stay in sync: `creator.portfolioUrl`/`hireUrl` here, `site`/`base` in `astro.config.mjs`, and `DEFAULT_MANIFEST_URL` in `EcosystemDrawer.tsx` (currently https://itailiors.github.io/portfolio-hub/).
 
 ## Product images ("gallery frame")
 
@@ -135,7 +137,7 @@ All CV copy lives in `src/data/profile.json`. Nothing in the components is hard-
 - `education[]` — CS studies.
 - `credibility[]` — hero badges.
 - `services[]` — "Work With Me" grid (`icon` is one of `server | rocket | puzzle`; add new SVG paths in `sections/Experience.astro`).
-- `creative` — `bio`, `instruments[].youtubeId` (empty → placeholder tile; set a YouTube video id to embed via youtube-nocookie), `gameJams[]`.
+- `creative` — `bio`, `venues`, `instruments` (labels), `sessions[]` (YouTube `youtubeId` + title + note; rendered as a click-to-play thumbnail that only loads the youtube-nocookie player on click), `gameJams[]` (optional `soundtrack` URL adds an "OST" link).
 - `contact` — email, socials; set `calendly` to switch the main hire CTA to a booking link.
 
 Every field currently containing `TODO` or `YYYY` is a placeholder to replace. When pasting a resume, rewrite bullets as outcome-first ("Cut p99 latency 40% on …"), keep stack arrays short, and run `npm run check` afterwards (Astro infers types from the JSON, so a missing field breaks the build — that's intended).
@@ -162,5 +164,6 @@ No `host_permissions` needed — the manifest is served with `Access-Control-All
 ## Verification checklist
 
 - `npm run build` passes with 0 errors / 0 warnings.
-- `curl -I https://<domain>/ecosystem.json` shows `access-control-allow-origin: *` after deploy.
+- `curl -I https://itailiors.github.io/portfolio-hub/ecosystem.json` shows `access-control-allow-origin: *` after deploy.
+- `npm run build` output has no root-relative `src`/`href` without the `/portfolio-hub` prefix.
 - No horizontal scroll at 375px width.
