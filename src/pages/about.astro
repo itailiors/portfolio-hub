@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/sections/Nav.astro";
+import Hero from "../components/sections/Hero.astro";
+import PosterSection from "../components/sections/PosterSection.astro";
+import Experience from "../components/sections/Experience.astro";
+import CreativeLab from "../components/sections/CreativeLab.astro";
+import Hire from "../components/sections/Hire.astro";
+import ProductShowcase from "../components/ProductShowcase";
+import DrawerPreview from "../components/DrawerPreview";
+// Same manifest external apps fetch at /ecosystem.json, with image URLs resolved at build time.
+import { manifest as ecosystem } from "../lib/products";
+---
+
+<Layout title="About & Jazz — Itai Lior // Software & Jazz" description="Itai Lior: full-stack product engineer (Angor.io, eBay), indie maker and jazz player. Remote backend, MVP and browser-extension contracts.">
+  <Nav active="about" />
+  <main>
+    <Hero />
+
+    <PosterSection
+      id="products"
+      number="01"
+      rail="Under the Hood"
+      eyebrow="Product engineering"
+      title="How my products are built."
+      subtitle="Flip any card to ⚙️ Under the Hood to see how it's built — or try it as a user first."
+    >
+      <div class="mt-10">
+        <ProductShowcase client:load manifest={ecosystem} />
+      </div>
+    </PosterSection>
+
+    <Experience />
+    <CreativeLab />
+
+    <PosterSection
+      id="widget"
+      eyebrow="Drop-in widget"
+      title="One manifest. Every app cross-promotes the rest."
+      subtitle="This is the exact “More tools by me” drawer embedded in my Chrome extension and mobile app — a portable React component fed by a public JSON manifest."
+      class="border-t border-cream/10"
+    >
+      <div class="mt-12">
+        <DrawerPreview client:visible manifest={ecosystem} />
+      </div>
+    </PosterSection>
+
+    <Hire />
+  </main>
+</Layout>

@@ -1,0 +1,59 @@
+---
+/**
+ * One product on the hub. Structure is shared by all three styles; the look comes from
+ * the .hub-* skins in styles.css plus the per-product values in lib/skins.ts.
+ */
+import ProductMedia from "./ProductMedia.astro";
+import { filtersFor, isWeb, productHref, readableOn, withUtm, type HubProduct } from "../../lib/products";
+import { skinFor } from "../../lib/skins";
+
+interface Props {
+  product: HubProduct;
+  /** First card: load its image eagerly. */
+  eager?: boolean;
+}
+const { product: p, eager = false } = Astro.props;
+const skin = skinFor(p.id);
+const split = skin.layout !== "stack";
+const accent = p.accentColor ?? "#D9231A";
+const vars = [
+  `--sk-bg:${skin.sketch.bg}`,
+  `--sk-ink:${skin.sketch.ink}`,
+  skin.sketch.btnBg && `--sk-btn-bg:${skin.sketch.btnBg}`,
+  skin.sketch.btnInk && `--sk-btn-ink:${skin.sketch.btnInk}`,
+  `--card-accent:${accent}`,
+  `--card-accent-ink:${readableOn(accent)}`,
+]
+  .filter(Boolean)
+  .join(";");
+const detail = productHref(p.id);
+const external = isWeb(p.ctaUrl) ? { target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+<article
+  class:list={["hub-card", skin.span, split && "is-split", skin.layout === "split-media-first" && "media-first", split && "md:col-span-2"]}
+  style={vars}
+  data-mat={skin.mat}
+  data-filters={filtersFor(p).join(" ")}
+  data-product={p.id}
+>
+  <span class="hub-tag">{p.platformLabel ?? p.statusBadge}</span>
+  {skin.pipes?.map((pipe) => <span class="ws-pipe" data-dir={pipe.dir} style={pipe.at ? `--at:${pipe.at}` : undefined} aria-hidden="true" />)}
+
+  <div class="flex min-w-0 flex-col">
+    <h3 class="hub-title [overflow-wrap:anywhere]"><a href={detail}>{p.name}</a></h3>
+    <p class="mt-3 text-lg font-semibold leading-snug">{p.tagline}</p>
+    <p class="hub-desc hub-muted mt-2 text-[0.95rem] leading-relaxed">{p.consumerDescription}</p>
+    <p class="hub-muted mt-3 font-mono text-[11px] uppercase tracking-[0.1em]">{p.statusBadge}</p>
+    <div class="mt-5 flex flex-wrap items-center gap-3">
+      <a href={withUtm(p.ctaUrl, p.utmTag, "hub")} class="hub-btn" {...external}>
+        {p.ctaText} {isWeb(p.ctaUrl) && <span aria-hidden="true">↗</span>}
+      </a>
+      <a href={detail} class="hub-btn-alt">How it works <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+
+  <a href={detail} class="hub-media" tabindex="-1" aria-hidden="true">
+    <ProductMedia product={p} eager={eager} />
+  </a>
+</article>

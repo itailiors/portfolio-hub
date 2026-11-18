@@ -103,9 +103,61 @@ ${body}
 `;
 }
 
-export function write(name, svg) {
+function hexToHsl(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  const r = ((n >> 16) & 255) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  if (max === min) return [0, 0, l];
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  const h = max === r ? (g - b) / d + (g < b ? 6 : 0) : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [h * 60, s, l];
+}
+function hslToHex(h, s, l) {
+  const k = (n) => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const c = (n) => Math.round(255 * (l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1)))).toString(16).padStart(2, "0");
+  return `#${c(0)}${c(8)}${c(4)}`.toUpperCase();
+}
+
+/**
+ * "Marker on paper" variant for the Sketchbook site style: the dark night scene is turned
+ * into a light paper page (dark, low-saturation colors become light tints of `hue`), the
+ * cream pencil lines become dark ink, and saturated marker colors stay as they are.
+ */
+export function toMarker(svg, { hue = 40, extraBackdrop = [] } = {}) {
+  const fixed = {
+    [C.cream]: "#1E2430",
+    [C.creamMuted]: "#5A6070",
+    [C.ink]: "#1E2430",
+    [C.night]: hslToHex(hue, 0.35, 0.95),
+  };
+  // Night-scene backgrounds (canvas, desk, dusk sky, distant ridges & wall) → paper tints.
+  // Other dark tones (hair, clothes, UI text) stay dark so the drawing keeps its contrast.
+  const backdrop = new Set([C.char, C.char2, "#100E0C", "#121110", "#191512", "#1E1613", "#26201C", "#3A3029", "#43382F", ...extraBackdrop]);
+  return svg.replace(/#[0-9a-fA-F]{6}/g, (hex) => {
+    const H = hex.toUpperCase();
+    if (fixed[H]) return fixed[H];
+    if (H === C.char3) return "#2B3140";
+    if (backdrop.has(H)) {
+      const [, sat, l] = hexToHsl(H);
+      return hslToHex(hue, 0.3 + sat * 0.3, 0.95 - l * 0.55);
+    }
+    return H;
+  });
+}
+
+/**
+ * Writes public/images/<name>. With `{ marker: { hue } }` it also writes <name>-color.svg,
+ * which the site swaps in for the Sketchbook style.
+ */
+export function write(name, svg, { marker } = {}) {
   const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
-  const out = join(root, "public", "images", name);
-  writeFileSync(out, svg);
-  console.log(`wrote public/images/${name} (${(svg.length / 1024).toFixed(1)} KB)`);
+  const save = (file, content) => {
+    writeFileSync(join(root, "public", "images", file), content);
+    console.log(`wrote public/images/${file} (${(content.length / 1024).toFixed(1)} KB)`);
+  };
+  save(name, svg);
+  if (marker) save(name.replace(/\.svg$/, "-color.svg"), toMarker(svg, marker));
 }

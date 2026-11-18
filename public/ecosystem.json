@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-14",
+  "updatedAt": "2026-11-18",
   "creator": {
     "name": "Itai Lior",
     "handle": "itailiors",
     "portfolioUrl": "https://itailiors.github.io/portfolio-hub/",
-    "hireUrl": "https://itailiors.github.io/portfolio-hub/#hire",
+    "hireUrl": "https://itailiors.github.io/portfolio-hub/about/#hire",
     "hireBannerText": "Need a custom app or extension? Hire me →"
   },
   "products": [
@@ -15,6 +15,7 @@
       "tagline": "A living lead sheet that teaches you to reharmonize.",
       "category": "live-product",
       "statusBadge": "Live · Web App",
+      "platformLabel": "Web App",
       "platforms": [
         "web"
       ],
@@ -22,6 +23,23 @@
       "accentColor": "#1B4596",
       "imageUrl": "/images/woodshed.jpg",
       "consumerDescription": "An advanced interactive jazz practice suite: a Comping Coach that listens to your voicings, an Improv Heatmap that scores your lines, and a Concept Passport dashboard where you earn stamps in all 12 keys.",
+      "story": {
+        "audience": "Jazz pianists and comping players who know their tunes' changes but want to hear, and play, richer harmony.",
+        "problem": "Reharmonization is usually learned from books and theory videos, away from the instrument. You read about substitutions but never feel them under your fingers, in time.",
+        "steps": [
+          "Open a tune and The Woodshed lays it out as a living lead sheet.",
+          "Turn the reharmonization dial, or press a MIDI expression pedal, to add color from plain triads up to altered substitutions.",
+          "Plug in a MIDI keyboard: the Comping Coach listens to your voicings and the Improv Heatmap scores your lines.",
+          "Collect stamps in all 12 keys on your Concept Passport as each idea sticks."
+        ],
+        "features": [
+          "Reharmonization dial with MIDI-pedal control",
+          "Comping Coach that listens to your voicings",
+          "Improv Heatmap that scores your lines",
+          "Concept Passport: track progress across all 12 keys",
+          "Runs in the browser, no install"
+        ]
+      },
       "ctaText": "Open in Browser",
       "ctaUrl": "https://itailiors.github.io/TheWoodshed/",
       "repoUrl": "https://github.com/itailiors/TheWoodshed",
@@ -47,6 +65,7 @@
       "tagline": "Skip to the parts everyone rewatches.",
       "category": "live-product",
       "statusBadge": "Live · Chrome Web Store",
+      "platformLabel": "Chrome Extension",
       "platforms": [
         "chrome"
       ],
@@ -54,6 +73,23 @@
       "accentColor": "#D9231A",
       "imageUrl": "/images/heatreel.png",
       "consumerDescription": "A Chrome extension that auto-generates smart highlight reels on YouTube from the crowd's replay heatmap — with a custom mini-player overlay, keyboard shortcuts (Alt+S, Alt+X), and 1-click emoji-tiered timestamp comments.",
+      "story": {
+        "audience": "Anyone who watches long YouTube videos (podcasts, streams, lectures, matches) and wants the good part without scrubbing.",
+        "problem": "YouTube already knows which moments everyone rewatches, but it only hints at it with a faint graph when you hover the progress bar.",
+        "steps": [
+          "Install the extension and open any YouTube video that has a \"most replayed\" graph.",
+          "HeatReel reads the graph and finds the real peaks, not just the noise.",
+          "Watch the highlight reel in its mini-player, or drive it from the keyboard with Alt+S and Alt+X.",
+          "Drop a one-click, emoji-tiered timestamp comment on the moments that hit."
+        ],
+        "features": [
+          "Auto-built highlight reel from the crowd's replay data",
+          "Custom mini-player overlay",
+          "Keyboard shortcuts (Alt+S, Alt+X)",
+          "One-click emoji timestamp comments",
+          "Runs entirely in your browser: no account, no server"
+        ]
+      },
       "ctaText": "Add to Chrome — Free",
       "ctaUrl": "https://chromewebstore.google.com/detail/pljkjcipfkonmhnhfkfjbhjjkbhpfihf",
       "repoUrl": "https://github.com/itailiors/heatreel",
@@ -79,6 +115,7 @@
       "tagline": "Grade your psychometric practice test in seconds.",
       "category": "in-progress",
       "statusBadge": "Beta · iOS & Android",
+      "platformLabel": "Mobile · iOS & Android",
       "platforms": [
         "ios",
         "android"
@@ -87,6 +124,23 @@
       "accentColor": "#174936",
       "imageUrl": "/images/psychoscanner.svg",
       "consumerDescription": "A mobile OMR scanner that grades official Israeli Psychometric Entrance Exam (פסיכומטרי) answer sheets in seconds with your phone camera — supporting 19 official NITE practice exams (2020–2026) and instant 0–150 scaled scoring.",
+      "story": {
+        "audience": "Students preparing for the Israeli psychometric entrance exam (פסיכומטרי) who practice on official NITE exams at home.",
+        "problem": "After a full practice test you still have to check every answer against the key by hand and work out the scaled score yourself. It's slow, error-prone, and the last thing you want after a three-hour exam.",
+        "steps": [
+          "Choose which official practice exam you took (19 NITE exams, 2020–2026).",
+          "Photograph your bubble answer sheet. No scanner or flash needed.",
+          "The app finds the sheet, flattens it and reads every mark.",
+          "Get your results and a 0–150 scaled score in seconds."
+        ],
+        "features": [
+          "Works with a phone camera on plain printouts",
+          "Copes with bent paper and dim lighting",
+          "19 official practice exams with answer keys built in",
+          "Instant scaled scoring",
+          "In beta on iOS & Android"
+        ]
+      },
       "ctaText": "Request Beta Access",
       "ctaUrl": "mailto:itaispam67@gmail.com?subject=PsychoScanner%20beta%20access",
       "utmTag": "psychoscanner",
@@ -112,13 +166,30 @@
       "tagline": "Ragdoll stunts. Your friends bet on how you fail.",
       "category": "game",
       "statusBadge": "In development · Multiplayer",
+      "platformLabel": "Multiplayer Game",
       "platforms": [
         "windows"
       ],
       "icon": "🎲",
       "accentColor": "#E85D1A",
-      "imageUrl": "/images/dave.jpg",
+      "imageUrl": "/images/dave.svg",
       "consumerDescription": "A chaotic physics-driven multiplayer \"friendslop\" game where players execute ragdoll stunts and spectators wager on the outcomes.",
+      "story": {
+        "audience": "Friend groups who love party games where failing is the funniest part.",
+        "problem": "In most party games the people who aren't playing just wait for their turn. In Bet on Dave, watching is a game too.",
+        "steps": [
+          "Players line up a ragdoll stunt.",
+          "Everyone watching bets on how it ends: clean landing, glorious wipeout, or something in between.",
+          "Physics decides, live and in sync for everyone in the lobby.",
+          "Bets pay out, and the stunt crew goes again."
+        ],
+        "features": [
+          "Physics-driven ragdoll stunts",
+          "Live spectator betting",
+          "Online multiplayer with host-authoritative netcode",
+          "In development for PC"
+        ]
+      },
       "ctaText": "Follow on itch.io",
       "ctaUrl": "https://itch.io/profile/ogfenix",
       "utmTag": "bet-on-dave",
@@ -143,6 +214,7 @@
       "tagline": "Five minutes a day. One idea at a time.",
       "category": "in-progress",
       "statusBadge": "Open source · PWA",
+      "platformLabel": "Web & Mobile · PWA",
       "platforms": [
         "web",
         "mobile"
@@ -151,6 +223,23 @@
       "accentColor": "#D9231A",
       "imageUrl": "/images/idea5.svg",
       "consumerDescription": "An offline-first phone app for a daily 5-minute idea ritual: a countdown that never interrupts you, a Markdown notepad, voice notes, streaks, searchable history and a daily calendar reminder. No account and no backend — everything stays on your device.",
+      "story": {
+        "audience": "People who want a small daily creative habit and keep bouncing off bloated note apps.",
+        "problem": "Ideas get better with daily practice, but most note apps are built for storing things, not for showing up every day.",
+        "steps": [
+          "Open Idea5 and start the 5-minute timer.",
+          "Write in Markdown or record a voice note. The timer never interrupts you.",
+          "Your streak grows and every session lands in a searchable history.",
+          "Add the daily reminder to your calendar so tomorrow's session is already booked."
+        ],
+        "features": [
+          "Distraction-free 5-minute timer",
+          "Markdown notepad and voice notes",
+          "Streaks and searchable history",
+          "Works offline and installs like an app",
+          "No account: everything stays on your device, with zip backup & restore"
+        ]
+      },
       "ctaText": "View on GitHub",
       "ctaUrl": "https://github.com/itailiors/Idea5",
       "repoUrl": "https://github.com/itailiors/Idea5",

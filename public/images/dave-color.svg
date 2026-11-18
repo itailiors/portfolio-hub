@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="t d">
+<title id="t">Bet on Dave: ragdolls on the high wire</title>
+<desc id="d">Pencil sketch under a circus big top: one ragdoll balances on a sagging high wire with a pole, another hangs on by one hand, and Dave tumbles upside down mid-wipeout while the crowd below waves betting slips and an odds board reads 7:2.</desc>
+<defs>
+  <filter id="rA" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="2" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="rB" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="G" yChannelSelector="R"/>
+  </filter>
+  <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#1E2430" stroke-width="1.1" stroke-opacity="0.32"/>
+  </pattern>
+  <pattern id="hatchX" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#1E2430" stroke-width="1" stroke-opacity="0.22"/>
+  </pattern>
+  <pattern id="hatchInk" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="#1E2430" stroke-width="1" stroke-opacity="0.35"/>
+  </pattern></defs>
+
+  
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.6">
+      <stop offset="0" stop-color="#E85D1A" stop-opacity="0.24"/>
+      <stop offset="0.65" stop-color="#E85D1A" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#E85D1A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6EAC2" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#F6EAC2" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="#EFE9DF"/>
+  <rect width="1280" height="720" fill="url(#glow)"/>
+  <polygon points="380,0 450,0 700,420 560,420" fill="url(#beam)"/>
+  <polygon points="900,0 960,0 800,420 690,420" fill="url(#beam)"/>
+  
+  <defs><g id="tent"><path d="M-20 0 L 140 0 L 120 46.1 Q 60 70.6 0 53.8 Z" fill="#F6EAC2" fill-opacity="0.16" stroke="#1E2430" stroke-width="2"/><path d="M140 0 L 300 0 L 280 51.6 Q 220 75.2 160 49.2 Z" fill="#D9231A" fill-opacity="0.8" stroke="#1E2430" stroke-width="2"/><path d="M300 0 L 460 0 L 440 49.7 Q 380 72.4 320 50.4 Z" fill="#F6EAC2" fill-opacity="0.16" stroke="#1E2430" stroke-width="2"/><path d="M460 0 L 620 0 L 600 51.8 Q 540 72.6 480 47.2 Z" fill="#D9231A" fill-opacity="0.8" stroke="#1E2430" stroke-width="2"/><path d="M620 0 L 780 0 L 760 52.1 Q 700 75.2 640 47.6 Z" fill="#F6EAC2" fill-opacity="0.16" stroke="#1E2430" stroke-width="2"/><path d="M780 0 L 940 0 L 920 48.9 Q 860 72.9 800 50.3 Z" fill="#D9231A" fill-opacity="0.8" stroke="#1E2430" stroke-width="2"/><path d="M940 0 L 1100 0 L 1080 48.4 Q 1020 79.8 960 48 Z" fill="#F6EAC2" fill-opacity="0.16" stroke="#1E2430" stroke-width="2"/><path d="M1100 0 L 1260 0 L 1240 53 Q 1180 71.9 1120 47.1 Z" fill="#D9231A" fill-opacity="0.8" stroke="#1E2430" stroke-width="2"/><path d="M1260 0 L 1420 0 L 1400 47.2 Q 1340 72.9 1280 50.4 Z" fill="#F6EAC2" fill-opacity="0.16" stroke="#1E2430" stroke-width="2"/></g></defs>
+  <use href="#tent" filter="url(#rA)"/>
+  <use href="#tent" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.15"/>
+  
+  <defs><g id="rig">
+  <g stroke="#1E2430" stroke-width="3" stroke-linejoin="round" fill="none">
+    <rect x="90" y="232" width="120" height="16" fill="#2B3140"/>
+    <line x1="104" y1="248" x2="94" y2="600"/>
+    <line x1="196" y1="248" x2="206" y2="600"/>
+    <line x1="102" y1="262" x2="198" y2="322" stroke-opacity="0.5"/><line x1="198" y1="262" x2="102" y2="322" stroke-opacity="0.5"/><line x1="102" y1="332" x2="198" y2="392" stroke-opacity="0.5"/><line x1="198" y1="332" x2="102" y2="392" stroke-opacity="0.5"/><line x1="102" y1="402" x2="198" y2="462" stroke-opacity="0.5"/><line x1="198" y1="402" x2="102" y2="462" stroke-opacity="0.5"/><line x1="102" y1="472" x2="198" y2="532" stroke-opacity="0.5"/><line x1="198" y1="472" x2="102" y2="532" stroke-opacity="0.5"/><line x1="102" y1="542" x2="198" y2="602" stroke-opacity="0.5"/><line x1="198" y1="542" x2="102" y2="602" stroke-opacity="0.5"/>
+  </g>
+  <g stroke="#1E2430" stroke-width="3" stroke-linejoin="round" fill="none">
+    <rect x="1070" y="258" width="120" height="16" fill="#2B3140"/>
+    <line x1="1084" y1="274" x2="1074" y2="600"/>
+    <line x1="1176" y1="274" x2="1186" y2="600"/>
+    <line x1="1082" y1="288" x2="1178" y2="348" stroke-opacity="0.5"/><line x1="1178" y1="288" x2="1082" y2="348" stroke-opacity="0.5"/><line x1="1082" y1="358" x2="1178" y2="418" stroke-opacity="0.5"/><line x1="1178" y1="358" x2="1082" y2="418" stroke-opacity="0.5"/><line x1="1082" y1="428" x2="1178" y2="488" stroke-opacity="0.5"/><line x1="1178" y1="428" x2="1082" y2="488" stroke-opacity="0.5"/><line x1="1082" y1="498" x2="1178" y2="558" stroke-opacity="0.5"/><line x1="1178" y1="498" x2="1082" y2="558" stroke-opacity="0.5"/><line x1="1082" y1="568" x2="1178" y2="628" stroke-opacity="0.5"/><line x1="1178" y1="568" x2="1082" y2="628" stroke-opacity="0.5"/>
+  </g><path d="M230 520 Q 640 600 1050 520" fill="none" stroke="#1E2430" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="8 7"/><line x1="260" y1="528" x2="290" y2="548" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="318" y1="537.1" x2="348" y2="555.2" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="376" y1="545.7" x2="406" y2="561.9" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="434" y1="553.2" x2="464" y2="567.9" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="492" y1="559.3" x2="522" y2="572.7" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="550" y1="563.5" x2="580" y2="576.1" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="608" y1="565.7" x2="638" y2="577.8" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="666" y1="565.7" x2="696" y2="577.8" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="724" y1="563.5" x2="754" y2="576.1" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="782" y1="559.3" x2="812" y2="572.7" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="840" y1="553.2" x2="870" y2="567.9" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="898" y1="545.7" x2="928" y2="561.9" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="956" y1="537.1" x2="986" y2="555.2" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/><line x1="1014" y1="528" x2="1044" y2="548" stroke="#1E2430" stroke-opacity="0.2" stroke-width="1.5"/></g></defs>
+  <use href="#rig" filter="url(#rA)"/>
+  <use href="#rig" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.2"/>
+  
+  <defs><g id="wire"><path d="M190 236 Q 640 340 1092 262" fill="none" stroke="#1E2430" stroke-width="3.5"/></g></defs>
+  <use href="#wire" filter="url(#rA)"/>
+  <use href="#wire" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.25"/>
+  
+  <defs><g id="board">
+  <g transform="translate(1110 96) rotate(4)">
+    <rect x="-78" y="-40" width="156" height="92" fill="#1E2430" stroke="#1E2430" stroke-width="3"/>
+    <text x="0" y="-12" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" fill="#5A6070">ODDS ON DAVE</text>
+    <text x="0" y="36" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="44" font-weight="700" fill="#E85D1A">7:2</text>
+  </g></g></defs>
+  <use href="#board" filter="url(#rA)"/>
+  <use href="#board" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.2"/>
+  
+  <defs><g id="balancer"><line x1="262.1" y1="169.4" x2="572.1" y2="107.4" stroke="#1E2430" stroke-width="9" stroke-linecap="round"/>
+  <line x1="262.1" y1="169.4" x2="572.1" y2="107.4" stroke="#E85D1A" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="412.1" y1="199.4" x2="427.8" y2="238.4" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="427.8" y1="238.4" x2="422.3" y2="278" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="412.1" y1="199.4" x2="427.8" y2="238.4" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/><line x1="427.8" y1="238.4" x2="422.3" y2="278" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/>
+    <line x1="424.6" y1="140.7" x2="460" y2="134.5" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="460" y1="134.5" x2="491.6" y2="121.8" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="424.6" y1="140.7" x2="460" y2="134.5" stroke="#1B4596" stroke-width="11" stroke-linecap="round"/><line x1="460" y1="134.5" x2="491.6" y2="121.8" stroke="#1B4596" stroke-width="11" stroke-linecap="round"/>
+    <line x1="412.1" y1="199.4" x2="426.7" y2="131" stroke="#1E2430" stroke-width="32" stroke-linecap="round"/><line x1="412.1" y1="199.4" x2="426.7" y2="131" stroke="#1B4596" stroke-width="26" stroke-linecap="round"/>
+    <line x1="412.1" y1="199.4" x2="402" y2="240.2" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="402" y1="240.2" x2="406.1" y2="280" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="412.1" y1="199.4" x2="402" y2="240.2" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/><line x1="402" y1="240.2" x2="406.1" y2="280" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/>
+    
+    <line x1="424.6" y1="140.7" x2="393.4" y2="122.7" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="393.4" y1="122.7" x2="359.9" y2="116.8" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="424.6" y1="140.7" x2="393.4" y2="122.7" stroke="#1B4596" stroke-width="11" stroke-linecap="round"/><line x1="393.4" y1="122.7" x2="359.9" y2="116.8" stroke="#1B4596" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="432.1" cy="105.5" r="24" fill="#F6EAC2" stroke="#1E2430" stroke-width="3.4"/>
+    <circle cx="423.4" cy="103.3" r="3" fill="#1E2430"/><circle cx="439.1" cy="100" r="3" fill="#1E2430"/><line x1="425.9" y1="114.3" x2="441.9" y2="114.3" stroke="#1E2430" stroke-width="3" stroke-linecap="round"/></g></defs>
+  <use href="#balancer" filter="url(#rA)"/>
+  <use href="#balancer" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.22"/>
+  
+  <defs><g id="hanger">
+    <line x1="839.1" y1="434.3" x2="857.5" y2="472" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="857.5" y1="472" x2="883.2" y2="502.6" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="839.1" y1="434.3" x2="857.5" y2="472" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/><line x1="857.5" y1="472" x2="883.2" y2="502.6" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/>
+    <line x1="847.4" y1="374.8" x2="829.4" y2="406" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="829.4" y1="406" x2="823.5" y2="439.5" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="847.4" y1="374.8" x2="829.4" y2="406" stroke="#174936" stroke-width="11" stroke-linecap="round"/><line x1="829.4" y1="406" x2="823.5" y2="439.5" stroke="#174936" stroke-width="11" stroke-linecap="round"/>
+    <line x1="839.1" y1="434.3" x2="848.8" y2="364.9" stroke="#1E2430" stroke-width="32" stroke-linecap="round"/><line x1="839.1" y1="434.3" x2="848.8" y2="364.9" stroke="#174936" stroke-width="26" stroke-linecap="round"/>
+    <line x1="839.1" y1="434.3" x2="824.7" y2="473.7" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="824.7" y1="473.7" x2="827.5" y2="513.6" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="839.1" y1="434.3" x2="824.7" y2="473.7" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/><line x1="824.7" y1="473.7" x2="827.5" y2="513.6" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/>
+    
+    <line x1="847.4" y1="374.8" x2="854.9" y2="339.6" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="854.9" y1="339.6" x2="857.3" y2="305.7" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="847.4" y1="374.8" x2="854.9" y2="339.6" stroke="#174936" stroke-width="11" stroke-linecap="round"/><line x1="854.9" y1="339.6" x2="857.3" y2="305.7" stroke="#174936" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="852.5" cy="339.2" r="24" fill="#F6EAC2" stroke="#1E2430" stroke-width="3.4"/>
+    <circle cx="844" cy="336.3" r="3" fill="#1E2430"/><circle cx="859.8" cy="334.1" r="3" fill="#1E2430"/><path d="M845.7 351.1 q 8 -7 16 0" fill="none" stroke="#1E2430" stroke-width="2.6" stroke-linecap="round"/></g></defs>
+  <use href="#hanger" filter="url(#rA)"/>
+  <use href="#hanger" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.22"/>
+  
+  <defs><g id="dave">
+    <line x1="640" y1="410" x2="661" y2="373.6" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="661" y1="373.6" x2="654.1" y2="334.2" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="640" y1="410" x2="661" y2="373.6" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/><line x1="661" y1="373.6" x2="654.1" y2="334.2" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/>
+    <line x1="671.8" y1="460.9" x2="703" y2="442.9" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="703" y1="442.9" x2="714.6" y2="410.9" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="671.8" y1="460.9" x2="703" y2="442.9" stroke="#D9231A" stroke-width="11" stroke-linecap="round"/><line x1="703" y1="442.9" x2="714.6" y2="410.9" stroke="#D9231A" stroke-width="11" stroke-linecap="round"/>
+    <line x1="640" y1="410" x2="677.1" y2="469.4" stroke="#1E2430" stroke-width="32" stroke-linecap="round"/><line x1="640" y1="410" x2="677.1" y2="469.4" stroke="#D9231A" stroke-width="26" stroke-linecap="round"/>
+    <line x1="640" y1="410" x2="625.6" y2="370.5" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="625.6" y1="370.5" x2="595" y2="344.8" stroke="#1E2430" stroke-width="19" stroke-linecap="round"/><line x1="640" y1="410" x2="625.6" y2="370.5" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/><line x1="625.6" y1="370.5" x2="595" y2="344.8" stroke="#2B3140" stroke-width="13" stroke-linecap="round"/>
+    
+    <line x1="671.8" y1="460.9" x2="638" y2="448.6" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="638" y1="448.6" x2="621" y2="419.1" stroke="#1E2430" stroke-width="17" stroke-linecap="round"/><line x1="671.8" y1="460.9" x2="638" y2="448.6" stroke="#D9231A" stroke-width="11" stroke-linecap="round"/><line x1="638" y1="448.6" x2="621" y2="419.1" stroke="#D9231A" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="690.9" cy="491.4" r="24" fill="#F6EAC2" stroke="#1E2430" stroke-width="3.4"/>
+    <circle cx="695.5" cy="499" r="3" fill="#1E2430"/><circle cx="682" cy="490.6" r="3" fill="#1E2430"/><ellipse cx="695.6" cy="483.8" rx="5" ry="7" fill="#1E2430"/>
+  <g stroke="#1E2430" stroke-width="3" stroke-linecap="round" fill="none" stroke-opacity="0.75">
+    <path d="M560 300 q 20 -30 50 -40"/>
+    <path d="M700 296 q -10 -36 -46 -52"/>
+    <path d="M540 360 q -6 -26 8 -46"/>
+  </g>
+  <text x="716" y="330" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="54" font-weight="700" fill="#E85D1A" transform="rotate(12 716 330)">!?</text>
+  <g transform="translate(470 300) rotate(-8)">
+    <rect x="-46" y="-22" width="92" height="40" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.6"/>
+    <text x="0" y="8" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="26" font-weight="700" fill="#1E2430">DAVE</text>
+  </g>
+  <path d="M500 330 q 40 30 86 54" fill="none" stroke="#1E2430" stroke-width="2.6" marker-end="url(#arrow)"/>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1E2430"/></marker></defs></g></defs>
+  <use href="#dave" filter="url(#rA)"/>
+  <use href="#dave" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.25"/>
+  
+  <defs><g id="crowd"><path d="M0 620 Q 640 590 1280 620 L 1280 720 L 0 720 Z" fill="#ECE5DA" stroke="#1E2430" stroke-width="2.4"/><path d="M25.2 720 Q 27.2 669.5 55.2 667.5 Q 83.2 669.5 85.2 720 Z" fill="#D9231A" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="55.2" cy="643.5" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><line x1="69.2" y1="669.5" x2="89.2" y2="584.9" stroke="#1E2430" stroke-width="7" stroke-linecap="round"/><g transform="translate(89.2 572.9) rotate(1.5)"><rect x="-34" y="-20" width="68" height="34" fill="#EFE9DC" stroke="#1E2430" stroke-width="2.2"/><text x="0" y="5" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" font-weight="700" fill="#B51C14">7:2</text></g><path d="M108.4 720 Q 110.4 681.6 138.4 679.6 Q 166.4 681.6 168.4 720 Z" fill="#1B4596" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="138.4" cy="655.6" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><path d="M201.3 720 Q 203.3 680.5 231.3 678.5 Q 259.3 680.5 261.3 720 Z" fill="#E85D1A" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="231.3" cy="654.5" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><line x1="217.3" y1="680.5" x2="197.3" y2="595.7" stroke="#1E2430" stroke-width="7" stroke-linecap="round"/><g transform="translate(197.3 583.7) rotate(9.2)"><rect x="-34" y="-20" width="68" height="34" fill="#EFE9DC" stroke="#1E2430" stroke-width="2.2"/><text x="0" y="5" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" font-weight="700" fill="#B51C14">ALL IN</text></g><path d="M268.8 720 Q 270.8 671.5 298.8 669.5 Q 326.8 671.5 328.8 720 Z" fill="#174936" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="298.8" cy="645.5" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><path d="M361.1 720 Q 363.1 676.5 391.1 674.5 Q 419.1 676.5 421.1 720 Z" fill="#F6EAC2" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="391.1" cy="650.5" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><line x1="405.1" y1="676.5" x2="425.1" y2="606.2" stroke="#1E2430" stroke-width="7" stroke-linecap="round"/><g transform="translate(425.1 594.2) rotate(-11.5)"><rect x="-34" y="-20" width="68" height="34" fill="#EFE9DC" stroke="#1E2430" stroke-width="2.2"/><text x="0" y="5" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" font-weight="700" fill="#B51C14">$5</text></g><path d="M455.4 720 Q 457.4 675.4 485.4 673.4 Q 513.4 675.4 515.4 720 Z" fill="#D9231A" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="485.4" cy="649.4" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><path d="M534.5 720 Q 536.5 677.4 564.5 675.4 Q 592.5 677.4 594.5 720 Z" fill="#1B4596" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="564.5" cy="651.4" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><line x1="550.5" y1="677.4" x2="530.5" y2="592.2" stroke="#1E2430" stroke-width="7" stroke-linecap="round"/><g transform="translate(530.5 580.2) rotate(5.7)"><rect x="-34" y="-20" width="68" height="34" fill="#EFE9DC" stroke="#1E2430" stroke-width="2.2"/><text x="0" y="5" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" font-weight="700" fill="#B51C14">FALL</text></g><path d="M625.8 720 Q 627.8 674.6 655.8 672.6 Q 683.8 674.6 685.8 720 Z" fill="#E85D1A" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="655.8" cy="648.6" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><path d="M705.1 720 Q 707.1 670.8 735.1 668.8 Q 763.1 670.8 765.1 720 Z" fill="#174936" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="735.1" cy="644.8" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><line x1="749.1" y1="670.8" x2="769.1" y2="598.6" stroke="#1E2430" stroke-width="7" stroke-linecap="round"/><g transform="translate(769.1 586.6) rotate(11.6)"><rect x="-34" y="-20" width="68" height="34" fill="#EFE9DC" stroke="#1E2430" stroke-width="2.2"/><text x="0" y="5" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" font-weight="700" fill="#B51C14">2:1</text></g><path d="M790.4 720 Q 792.4 671.8 820.4 669.8 Q 848.4 671.8 850.4 720 Z" fill="#F6EAC2" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="820.4" cy="645.8" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><path d="M882.6 720 Q 884.6 674.7 912.6 672.7 Q 940.6 674.7 942.6 720 Z" fill="#D9231A" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="912.6" cy="648.7" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><line x1="898.6" y1="674.7" x2="878.6" y2="604" stroke="#1E2430" stroke-width="7" stroke-linecap="round"/><g transform="translate(878.6 592) rotate(5.2)"><rect x="-34" y="-20" width="68" height="34" fill="#EFE9DC" stroke="#1E2430" stroke-width="2.2"/><text x="0" y="5" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" font-weight="700" fill="#B51C14">DAVE!</text></g><path d="M974.4 720 Q 976.4 679 1004.4 677 Q 1032.4 679 1034.4 720 Z" fill="#1B4596" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="1004.4" cy="653" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><path d="M1058.5 720 Q 1060.5 681.1 1088.5 679.1 Q 1116.5 681.1 1118.5 720 Z" fill="#E85D1A" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="1088.5" cy="655.1" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><line x1="1102.5" y1="681.1" x2="1122.5" y2="596.4" stroke="#1E2430" stroke-width="7" stroke-linecap="round"/><g transform="translate(1122.5 584.4) rotate(-10.7)"><rect x="-34" y="-20" width="68" height="34" fill="#EFE9DC" stroke="#1E2430" stroke-width="2.2"/><text x="0" y="5" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" font-weight="700" fill="#B51C14">$$</text></g><path d="M1138.6 720 Q 1140.6 681 1168.6 679 Q 1196.6 681 1198.6 720 Z" fill="#174936" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="1168.6" cy="655" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><path d="M1231.8 720 Q 1233.8 687.2 1261.8 685.2 Q 1289.8 687.2 1291.8 720 Z" fill="#F6EAC2" fill-opacity="0.85" stroke="#1E2430" stroke-width="2.2"/><circle cx="1261.8" cy="661.2" r="17" fill="#F6EAC2" stroke="#1E2430" stroke-width="2.4"/><line x1="1247.8" y1="687.2" x2="1227.8" y2="603.8" stroke="#1E2430" stroke-width="7" stroke-linecap="round"/><g transform="translate(1227.8 591.8) rotate(2.6)"><rect x="-34" y="-20" width="68" height="34" fill="#EFE9DC" stroke="#1E2430" stroke-width="2.2"/><text x="0" y="5" text-anchor="middle" font-family="Segoe Print, Comic Sans MS, Bradley Hand, cursive" font-size="17" font-weight="700" fill="#B51C14">NOPE</text></g></g></defs>
+  <use href="#crowd" filter="url(#rA)"/>
+  <use href="#crowd" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.18"/>
+  
+  <defs><g id="sparkles"><path d="M150 108 Q153.4 116.6 162 120 Q153.4 123.4 150 132 Q146.6 123.4 138 120 Q146.6 116.6 150 108 Z" fill="#E85D1A"/><path d="M820 142 Q822.2 147.8 828 150 Q822.2 152.2 820 158 Q817.8 152.2 812 150 Q817.8 147.8 820 142 Z" fill="#1E2430"/><path d="M300 323 Q302 328 307 330 Q302 332 300 337 Q298 332 293 330 Q298 328 300 323 Z" fill="#1E2430"/><path d="M980 370 Q982.8 377.2 990 380 Q982.8 382.8 980 390 Q977.2 382.8 970 380 Q977.2 377.2 980 370 Z" fill="#E85D1A"/></g></defs>
+  <use href="#sparkles" filter="url(#rA)"/>
+  <use href="#sparkles" filter="url(#rB)" transform="translate(2 1.4)" opacity="0.3"/>
+</svg>

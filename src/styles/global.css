@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./styles.css"; /* the three site styles + slider (loaded after @theme defaults) */
 
 /*
  * "Software & Jazz Co-op" design system.
@@ -11,6 +12,7 @@
   --font-display: "Bebas Neue", "Space Grotesk", ui-sans-serif, sans-serif; /* condensed vertical headers */
   --font-serif: "Playfair Display", ui-serif, Georgia, serif; /* italic overlapping accents & numerals */
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-hand: "Playfair Display", ui-serif, Georgia, serif; /* handwritten accents in the Sketchbook style */
 
   /* Night session (primary canvas) */
   --color-night: #0e0d0c;
@@ -88,7 +90,7 @@
   }
   ::selection { background: var(--color-crimson); color: #fff8ec; }
   :focus-visible { outline: 2px solid var(--color-terra); outline-offset: 3px; }
-  section[id] { scroll-margin-top: 5rem; }
+  section[id] { scroll-margin-top: 7rem; }
 }
 
 @layer components {

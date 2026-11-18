@@ -10,8 +10,8 @@ interface Props {
 }
 
 const {
-  title = "Itai Lior // Software & Jazz Co-op",
-  description = "Full-stack product engineer & indie maker: Chrome extensions, web and mobile apps, and games — plus remote backend, MVP and browser-extension contracts.",
+  title = "Itai Lior // Software & Jazz",
+  description = "Apps, a Chrome extension and games by Itai Lior — each one explained, all built by one maker. Plus remote backend, MVP and browser-extension contracts.",
   noindex = false,
 } = Astro.props;
 
@@ -19,28 +19,42 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-style="sketch">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Apply the saved site style before first paint (no flash). Default: sketch. -->
+    <script is:inline>
+      (function () {
+        var styles = { poster: "#0e0d0c", workshop: "#1c140e", sketch: "#1f2530" };
+        var s = "sketch";
+        try {
+          var saved = localStorage.getItem("il-style");
+          if (saved && styles[saved]) s = saved;
+        } catch (e) {}
+        document.documentElement.dataset.style = s;
+        window.__IL_STYLES = styles;
+      })();
+    </script>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0e0d0c" />
+    <meta name="theme-color" content="#1f2530" />
     <meta name="author" content="Itai Lior" />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:site_name" content="Itai Lior // Software & Jazz Co-op" />
+    <meta property="og:site_name" content="Itai Lior // Software & Jazz" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- One request for all three styles; browsers only download the faces a page actually uses. -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,600;1,700;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&family=Kalam:wght@400;700&family=Nunito:wght@400;600;700;800&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@1,600;1,700;1,900&family=Roboto+Slab:wght@600;700&family=Rubik:wght@500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     />
     <title>{title}</title>
   </head>

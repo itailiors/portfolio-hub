@@ -203,4 +203,5 @@ write(
     desc: "Pencil sketch over a student's shoulder: they hold a phone above a filled bubble answer sheet on a desk, and the PsychoScanner screen reveals a score of 142 out of 150 with per-domain bars.",
     body,
   }),
+  { marker: { hue: 140 } },
 );

@@ -1,0 +1,41 @@
+---
+/**
+ * Product picture for the hub and detail pages. Uses the screenshot / illustration when the
+ * file exists (checked at build time in lib/products.ts), with a "-color" variant swapped in
+ * for the Sketchbook style; otherwise falls back to the generated SVG poster art.
+ */
+import JazzPosterArt, { motifFor } from "../JazzPosterArt";
+import type { HubProduct } from "../../lib/products";
+
+interface Props {
+  product: HubProduct;
+  eager?: boolean;
+}
+const { product: p, eager = false } = Astro.props;
+const hasVariant = !!p.imageSketch && p.imageSketch !== p.image;
+const loading = eager ? "eager" : "lazy";
+---
+
+{
+  p.image ? (
+    <>
+      <img
+        src={p.image}
+        alt={`${p.name} — screenshot`}
+        loading={loading}
+        decoding="async"
+        class:list={[hasVariant && "img-default"]}
+      />
+      {hasVariant && <img src={p.imageSketch} alt={`${p.name} — illustration`} loading={loading} decoding="async" class="img-sketch" />}
+    </>
+  ) : (
+    <JazzPosterArt
+      variant="card"
+      motif={motifFor(p.id)}
+      seed={p.id}
+      accent={p.accentColor ?? "#D9231A"}
+      className="poster-art"
+      label={`${p.name} artwork`}
+    />
+  )
+}

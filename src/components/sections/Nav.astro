@@ -1,23 +1,56 @@
 ---
 import Monogram from "../Monogram.astro";
+import StyleSlider from "../StyleSlider.astro";
+import { withBase } from "../../lib/url";
+
+/** Which top-level page is active. */
+interface Props {
+  active?: "products" | "archive" | "about";
+}
+const { active } = Astro.props;
+
 const links = [
-  { href: "#products", label: "Products" },
-  { href: "#experience", label: "Architecture" },
-  { href: "#services", label: "Services" },
-  { href: "#lab", label: "Co-op" },
-  { href: "#widget", label: "Widget" },
+  { id: "products", href: withBase("/"), label: "Products" },
+  { id: "archive", href: withBase("/archive/"), label: "Archive" },
 ];
+const aboutHref = withBase("/about/");
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 border-b border-cream/10 bg-night/85 backdrop-blur-md">
-  <nav class="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6" aria-label="Primary">
-    <a href="#top" class="flex items-center gap-2.5 text-cream" aria-label="Itai Lior — home">
+  <nav class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-2.5 sm:px-6" aria-label="Primary">
+    <a href={withBase("/")} class="flex min-w-0 items-center gap-2.5 text-cream" aria-label="Itai Lior — products home">
       <Monogram size={34} />
-      <span class="hidden font-mono text-[11px] uppercase tracking-[0.18em] text-cream-muted sm:inline">Software &amp; Jazz Co-op</span>
+      <span class="hidden font-display text-lg leading-none tracking-wide text-cream lg:inline">Itai Lior <span class="text-terra">//</span> Software &amp; Jazz</span>
     </a>
-    <ul class="hidden items-center gap-7 font-mono text-[11px] uppercase tracking-[0.14em] text-cream-muted md:flex">
-      {links.map((l) => <li><a href={l.href} class="transition hover:text-cream">{l.label}</a></li>)}
-    </ul>
-    <a href="#hire" class="btn-crimson px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em]">Hire me</a>
+
+    <div class="order-last flex w-full items-center justify-between gap-4 sm:order-none sm:w-auto sm:justify-end sm:gap-6">
+      <ul class="flex items-center gap-5 text-sm font-semibold">
+        {
+          links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                aria-current={active === l.id ? "page" : undefined}
+                class:list={[
+                  "border-b-2 py-1 transition",
+                  active === l.id ? "border-terra text-cream" : "border-transparent text-cream-muted hover:text-cream",
+                ]}
+              >
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href={aboutHref}
+        aria-current={active === "about" ? "page" : undefined}
+        class="btn-ghost whitespace-nowrap px-3 py-1.5 text-sm"
+      >
+        About &amp; Jazz <span class="hidden font-normal opacity-75 md:inline">(the maker)</span>
+      </a>
+    </div>
+
+    <StyleSlider />
   </nav>
 </header>

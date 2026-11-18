@@ -1,0 +1,144 @@
+---
+/** One page per product: the full story (what / who / why / how), then the engineering. */
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/sections/Nav.astro";
+import ProductMedia from "../../components/hub/ProductMedia.astro";
+import SiteFooter from "../../components/hub/SiteFooter.astro";
+import { isWeb, productHref, products, readableOn, withUtm, type HubProduct } from "../../lib/products";
+import { skinFor } from "../../lib/skins";
+import { withBase } from "../../lib/url";
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { id: p.id }, props: { product: p } }));
+}
+
+const { product: p } = Astro.props as { product: HubProduct };
+const skin = skinFor(p.id);
+const accent = p.accentColor ?? "#D9231A";
+const vars = [
+  `--sk-bg:${skin.sketch.bg}`,
+  `--sk-ink:${skin.sketch.ink}`,
+  skin.sketch.btnBg && `--sk-btn-bg:${skin.sketch.btnBg}`,
+  skin.sketch.btnInk && `--sk-btn-ink:${skin.sketch.btnInk}`,
+  `--card-accent:${accent}`,
+  `--card-accent-ink:${readableOn(accent)}`,
+]
+  .filter(Boolean)
+  .join(";");
+const external = isWeb(p.ctaUrl) ? { target: "_blank", rel: "noopener noreferrer" } : {};
+const others = products.filter((o) => o.id !== p.id);
+const story = p.story;
+---
+
+<Layout title={`${p.name} — ${p.tagline} · Itai Lior`} description={p.consumerDescription}>
+  <Nav />
+  <main class="mx-auto max-w-6xl px-4 pt-32 sm:px-6 sm:pt-28">
+    <a href={withBase("/")} class="inline-flex items-center gap-2 text-sm font-semibold text-cream-muted hover:text-cream">← All products</a>
+
+    <!-- hero: the product's own card, larger -->
+    <article class="hub-card is-split mt-8" style={vars} data-mat={skin.mat}>
+      <span class="hub-tag">{p.platformLabel ?? p.statusBadge}</span>
+      <div class="flex min-w-0 flex-col">
+        <h1 class="hub-title [overflow-wrap:anywhere]">{p.name}</h1>
+        <p class="mt-3 text-xl font-semibold leading-snug">{p.tagline}</p>
+        <p class="hub-muted mt-3 leading-relaxed">{p.consumerDescription}</p>
+        <p class="hub-muted mt-4 font-mono text-[11px] uppercase tracking-[0.1em]">{p.statusBadge}</p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a href={withUtm(p.ctaUrl, p.utmTag, "product-page")} class="hub-btn" {...external}>
+            {p.ctaText} {isWeb(p.ctaUrl) && <span aria-hidden="true">↗</span>}
+          </a>
+          {
+            p.repoUrl && p.repoUrl !== p.ctaUrl && (
+              <a href={p.repoUrl} target="_blank" rel="noopener noreferrer" class="hub-btn-alt">
+                Source code ↗
+              </a>
+            )
+          }
+        </div>
+      </div>
+      <div class="hub-media">
+        <ProductMedia product={p} eager />
+      </div>
+    </article>
+
+    {
+      story && (
+        <>
+          <div class="mt-16 grid gap-8 md:grid-cols-2">
+            <section class="hub-panel" aria-labelledby="who">
+              <p class="eyebrow" id="who">Who it's for</p>
+              <p class="mt-3 text-lg leading-relaxed">{story.audience}</p>
+            </section>
+            <section class="hub-panel" aria-labelledby="why">
+              <p class="eyebrow" id="why">The problem</p>
+              <p class="mt-3 text-lg leading-relaxed">{story.problem}</p>
+            </section>
+          </div>
+
+          <section class="mt-16" aria-labelledby="how">
+            <h2 id="how" class="font-display text-4xl tracking-wide sm:text-5xl">How it works</h2>
+            <ol class="mt-8 grid gap-6 sm:grid-cols-2">
+              {story.steps.map((step, i) => (
+                <li class="flex gap-4">
+                  <span class="step-num">{i + 1}</span>
+                  <p class="pt-1 leading-relaxed text-cream-muted">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section class="hub-panel is-paper mt-16" aria-labelledby="features">
+            <h2 id="features" class="font-display text-3xl tracking-wide sm:text-4xl">What you get</h2>
+            <ul class="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+              {story.features.map((f) => (
+                <li class="flex gap-3">
+                  <span class="font-bold text-crimson" aria-hidden="true">✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </>
+      )
+    }
+
+    <!-- engineering -->
+    <section class="mt-16 border-t border-cream/15 pt-12" aria-labelledby="hood">
+      <p class="eyebrow">⚙️ Under the hood</p>
+      <h2 id="hood" class="mt-2 font-display text-4xl tracking-wide sm:text-5xl">How it's built</h2>
+      <div class="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <p class="leading-relaxed text-cream-muted">{p.engineeringSpecs.architectureHighlight}</p>
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-cream-subtle">Stack</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {p.engineeringSpecs.stack.map((s) => <li class="border border-cream/25 px-2.5 py-1 font-mono text-xs">{s}</li>)}
+          </ul>
+          <p class="mt-6 font-mono text-[11px] uppercase tracking-[0.12em] text-cream-subtle">Status</p>
+          <p class="mt-2 font-mono text-sm text-terra">{p.engineeringSpecs.metrics}</p>
+        </div>
+      </div>
+      <p class="mt-10 text-cream-muted">
+        Need something like this built? <a href={withBase("/about/#hire")} class="font-semibold text-cream underline decoration-terra decoration-2 underline-offset-4 hover:text-terra">Let's talk →</a>
+      </p>
+    </section>
+
+    <!-- more products -->
+    <section class="mt-20" aria-labelledby="more">
+      <h2 id="more" class="font-display text-3xl tracking-wide sm:text-4xl">More from the studio</h2>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          others.map((o) => (
+            <li>
+              <a href={productHref(o.id)} class="hub-panel group block h-full transition hover:-translate-y-0.5">
+                <p class="font-display text-2xl tracking-wide group-hover:text-terra">{o.name}</p>
+                <p class="mt-1 text-sm text-cream-muted">{o.tagline}</p>
+                <p class="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-cream-subtle">{o.platformLabel ?? o.statusBadge}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+  <SiteFooter />
+</Layout>

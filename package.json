@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "art": "node scripts/art/psychoscanner.mjs && node scripts/art/idea5.mjs"
+    "art": "node scripts/art/psychoscanner.mjs && node scripts/art/idea5.mjs && node scripts/art/dave.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.4",

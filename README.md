@@ -1,16 +1,24 @@
-# Itai Lior // Software & Jazz Co-op
+# Itai Lior // Software & Jazz
 
 [![Live site](https://img.shields.io/badge/live-itailiors.github.io%2Fportfolio--hub-d9231a?style=flat-square)](https://itailiors.github.io/portfolio-hub/)
 [![Deploy to GitHub Pages](https://github.com/itailiors/portfolio-hub/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/itailiors/portfolio-hub/actions/workflows/deploy.yml)
 
 ### ▶ [itailiors.github.io/portfolio-hub](https://itailiors.github.io/portfolio-hub/)
 
-My product studio hub and interactive portfolio. One site with two jobs:
+My product studio hub and interactive portfolio. **The products come first**: the homepage is the product hub, every product has its own page that explains it, and everything about me lives one click away on the About page. One site, two jobs:
 
 - **For users** of my apps: discover and install the rest of what I've built.
 - **For founders and hiring managers**: see end-to-end product work, flip any product to its engineering details, and get in touch for remote contracts and MVPs.
 
-The look is a late-night jazz poster: night black and crimson from the North Gate Jazz Co-op (Chiang Mai), cobalt ink on cream paper, and Bauhaus geometric jazz art. Everything is drawn with design tokens, type and inline SVG; no stock images.
+The site comes in **three styles**, switched by a slider in the header (your choice is remembered):
+
+| Style | Look |
+|---|---|
+| **Sketch** (default) | Slate page, colored hand-drawn cards, paper tags, marker-on-paper illustrations |
+| **Workshop** | Wood and brushed-metal panels, brass plaques and rivets, copper pipes on a blueprint grid |
+| **Poster** | The original late-night jazz poster: night black and crimson, cobalt ink on cream paper, Bauhaus geometry |
+
+Everything is drawn with design tokens, type, CSS and inline SVG; no stock images.
 
 ---
 
@@ -26,13 +34,18 @@ The look is a late-night jazz poster: night black and crimson from the North Gat
 
 Plus game-jam builds on [itch.io](https://itch.io/profile/ogfenix) and music on [YouTube](https://www.youtube.com/@itai171).
 
-## What's on the page
+## The pages
 
-- **Product showcase** with a global **✨ User View / ⚙️ Under the Hood** toggle and per-card flip: consumer pitch and screenshot on one side, stack, architecture and metrics on the other.
-- **Engineering track record**: Angor.io (open-source Bitcoin), eBay (backend & DevOps), and full-stack work for a national governance body.
-- **Productized services**: high-scale backends & APIs, end-to-end MVPs, browser extensions & automation.
-- **Creative Lab**: featured game, game jams, and a music corner with click-to-play sessions.
-- **Drop-in widget preview**: the exact "More tools by me" drawer my apps embed.
+- **[Products](https://itailiors.github.io/portfolio-hub/)** (home): stats strip, filters (Web / Extensions / Mobile / Games) and a bento of product cards, each with what it is, a picture and a "How it works" link. Plus a list of jam builds.
+- **Product pages** (`/products/<id>/`): who it's for, the problem it solves, how it works step by step, what you get, and how it's built.
+- **[Archive](https://itailiors.github.io/portfolio-hub/archive/)**: game-jam builds and recorded music sessions.
+- **[About & Jazz](https://itailiors.github.io/portfolio-hub/about/)** (the maker):
+  - **How my products are built**: a showcase with a global **✨ User View / ⚙️ Under the Hood** toggle and per-card flip.
+  - **Engineering track record**: Angor.io (open-source Bitcoin), eBay (backend & DevOps), and full-stack work for a national governance body.
+  - **Productized services**: high-scale backends & APIs, end-to-end MVPs, browser extensions & automation.
+  - **Creative Lab**: featured game, game jams, and a music corner with click-to-play sessions.
+  - **Drop-in widget preview**: the exact "More tools by me" drawer my apps embed.
+  - **Hire me**.
 
 ## The cross-promotion ecosystem
 
@@ -58,7 +71,8 @@ It filters out the host app, tags every link with `utm_source=<host app>`, cache
 ## Tech stack
 
 - [Astro 7](https://astro.build) (static output) with React 19 islands
-- Tailwind CSS 4 (design tokens in [`src/styles/global.css`](src/styles/global.css))
+- Tailwind CSS 4 (design tokens in [`src/styles/global.css`](src/styles/global.css); the three site styles in [`src/styles/styles.css`](src/styles/styles.css))
+- Style switching with CSS variables + the View Transitions API, applied before first paint
 - TypeScript (strict), checked with `astro check` on every build
 - Deployed to GitHub Pages by [GitHub Actions](.github/workflows/deploy.yml) on every push to `main`
 
@@ -77,7 +91,7 @@ npm run dev      # http://localhost:4321/portfolio-hub/
 | `npm run check` | Type-check Astro, TS and JSON data |
 | `npm run build` | `astro check` + production build to `dist/` |
 | `npm run preview` | Serve the production build |
-| `npm run art` | Regenerate the pencil-sketch illustrations in `public/images/` |
+| `npm run art` | Regenerate the sketch illustrations (and their Sketchbook color versions) in `public/images/` |
 
 The site lives under the `/portfolio-hub` base path. Root-relative links in markup go through `withBase()` in [`src/lib/url.ts`](src/lib/url.ts).
 
@@ -89,18 +103,23 @@ public/
   images/               screenshots + generated sketch illustrations
 src/
   data/profile.json     CV, services, creative bio, music sessions, contact
+  lib/                  products (manifest + images), skins (per-product looks), url
+  styles/               tokens (global.css) + the three site styles (styles.css)
   components/
-    ProductShowcase.tsx   product cards with the user / engineering flip
+    StyleSlider.astro     Poster · Workshop · Sketch slider
+    hub/                  product cards, media and footer for the hub + product pages
+    ProductShowcase.tsx   product cards with the user / engineering flip (About page)
     EcosystemDrawer.tsx   portable "More tools by me" drawer
     JazzPosterArt.tsx     generative SVG poster art (card fallbacks + hero)
     sections/             hero, experience, services, creative lab, hire
-  pages/                index + 404
+  pages/                index (products hub), products/[id], archive, about, 404
 scripts/art/            generators for the sketch-style illustrations
 ```
 
 ## Editing content
 
-- **Products** → [`public/ecosystem.json`](public/ecosystem.json). Each product can set an `imageUrl`; if the image is missing or fails to load, the card falls back to generated SVG art without shifting the layout.
+- **Products** → [`public/ecosystem.json`](public/ecosystem.json). The `story` field (audience, problem, steps, features) fills the product page. Each product can set an `imageUrl`; if the image is missing, the card falls back to generated SVG art. A `<image>-color.<ext>` file next to it is used in the Sketch style.
+- **How each product looks per style** → [`src/lib/skins.ts`](src/lib/skins.ts).
 - **CV, services, music, contact** → [`src/data/profile.json`](src/data/profile.json).
 - **Illustrations** → edit a script in [`scripts/art/`](scripts/art/), then `npm run art`.
 
@@ -108,4 +127,4 @@ More detail on the design system, manifest schema and widget sync rules is in [`
 
 ## Contact
 
-Open to remote contracts and MVP builds. Reach me via the [hire section](https://itailiors.github.io/portfolio-hub/#hire), on [GitHub](https://github.com/itailiors), or on Instagram at [@it.is.lio](https://www.instagram.com/it.is.lio/).
+Open to remote contracts and MVP builds. Reach me via the [hire section](https://itailiors.github.io/portfolio-hub/about/#hire), on [GitHub](https://github.com/itailiors), or on Instagram at [@it.is.lio](https://www.instagram.com/it.is.lio/).

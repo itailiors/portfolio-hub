@@ -107,7 +107,7 @@ land += fore;
 
 // clouds & birds
 const cloud = (x, y, s) =>
-  `<path d="M${x} ${y} c ${-30 * s} 0 ${-30 * s} ${-28 * s} 0 ${-28 * s} c ${4 * s} ${-26 * s} ${46 * s} ${-26 * s} ${50 * s} ${-4 * s} c ${18 * s} ${-14 * s} ${44 * s} ${2 * s} ${34 * s} ${32 * s} Z" fill="${C.char3}" fill-opacity="0.85" stroke="${C.cream}" stroke-opacity="0.55" stroke-width="2"/>`;
+  `<path d="M${x} ${y} c ${-30 * s} 0 ${-30 * s} ${-28 * s} 0 ${-28 * s} c ${4 * s} ${-26 * s} ${46 * s} ${-26 * s} ${50 * s} ${-4 * s} c ${18 * s} ${-14 * s} ${44 * s} ${2 * s} ${34 * s} ${32 * s} Z" fill="#2C2824" fill-opacity="0.85" stroke="${C.cream}" stroke-opacity="0.55" stroke-width="2"/>`;
 const birds = [[930, 150], [960, 132], [985, 158]].map(([x, y]) => `<path d="M${x} ${y} q 8 -8 16 0 q 8 -8 16 0" fill="none" stroke="${C.cream}" stroke-opacity="0.7" stroke-width="2"/>`).join("");
 const air = cloud(250, 170, 1.4) + cloud(560, 92, 0.9) + birds;
 
@@ -241,4 +241,5 @@ write(
     desc: "Pencil sketch at dusk: a person with their chin on their fist thinks hard while riding a giant flying triangular pencil past the Great Wall winding over the mountain ridges; their thought bubble holds a lightbulb and a 5:00 timer.",
     body,
   }),
+  { marker: { hue: 32, extraBackdrop: ["#2C2824"] } },
 );

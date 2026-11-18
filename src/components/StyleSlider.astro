@@ -1,0 +1,130 @@
+---
+/**
+ * Three-stop style slider: Poster · Workshop · Sketch.
+ * The thumb position is pure CSS (driven by html[data-style]), so it is right before JS runs.
+ * Click a stop, drag the thumb, or use the arrow keys. Switching wipes the new style across
+ * the page in the direction you slid (View Transitions), or swaps instantly with reduced motion.
+ */
+const STOPS = [
+  { id: "poster", label: "Poster" },
+  { id: "workshop", label: "Workshop" },
+  { id: "sketch", label: "Sketch" },
+];
+---
+
+<div class="style-slider" role="radiogroup" aria-label="Site style" data-style-slider>
+  <span class="style-slider__thumb" aria-hidden="true"></span>
+  {
+    STOPS.map((s) => (
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-style-option={s.id} title={`${s.label} style`}>
+        {s.label}
+      </button>
+    ))
+  }
+</div>
+
+<script>
+  const ORDER = ["poster", "workshop", "sketch"] as const;
+  type Style = (typeof ORDER)[number];
+  const root = document.documentElement;
+  // The style being switched to while a wipe is still pending, so rapid key presses chain correctly.
+  let pending: Style | null = null;
+  const current = (): Style =>
+    pending ?? (ORDER.includes(root.dataset.style as Style) ? (root.dataset.style as Style) : "sketch");
+
+  function sync() {
+    const s = current();
+    document.querySelectorAll<HTMLButtonElement>("[data-style-option]").forEach((b) => {
+      const on = b.dataset.styleOption === s;
+      b.setAttribute("aria-checked", String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
+    const colors = (window as unknown as { __IL_STYLES?: Record<string, string> }).__IL_STYLES;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (colors && meta) meta.setAttribute("content", colors[s]);
+  }
+
+  function setStyle(next: Style) {
+    const prev = current();
+    if (next === prev) return;
+    try {
+      localStorage.setItem("il-style", next);
+    } catch {
+      /* private mode: the choice just isn't remembered */
+    }
+    const apply = () => {
+      root.dataset.style = next;
+      if (pending === next) pending = null;
+      sync();
+    };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } };
+    if (!doc.startViewTransition || reduce) return apply();
+    pending = next;
+    // aria-checked / focus follow the choice right away; the colors follow with the wipe
+    document.querySelectorAll<HTMLButtonElement>("[data-style-option]").forEach((b) => {
+      const on = b.dataset.styleOption === next;
+      b.setAttribute("aria-checked", String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
+    root.dataset.wipe = ORDER.indexOf(next) > ORDER.indexOf(prev) ? "right" : "left";
+    doc.startViewTransition(apply).finished.finally(() => {
+      if (!pending) delete root.dataset.wipe;
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-style-slider]").forEach((slider) => {
+    slider.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-style-option]");
+      if (btn) setStyle(btn.dataset.styleOption as Style);
+    });
+
+    slider.addEventListener("keydown", (e) => {
+      const i = ORDER.indexOf(current());
+      const step = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      const next = ORDER[(i + step + ORDER.length) % ORDER.length];
+      setStyle(next);
+      slider.querySelector<HTMLButtonElement>(`[data-style-option="${next}"]`)?.focus();
+    });
+
+    // Drag the thumb: it follows the pointer, then snaps to the nearest stop on release.
+    const thumb = slider.querySelector<HTMLElement>(".style-slider__thumb")!;
+    let dragging = false;
+    let moved = false;
+    const stopAt = (clientX: number) => {
+      const r = slider.getBoundingClientRect();
+      const w = (r.width - 6) / ORDER.length;
+      const x = Math.min(Math.max(clientX - r.left - 3 - w / 2, 0), w * (ORDER.length - 1));
+      return { x, index: Math.round(x / w) };
+    };
+    let startX = 0;
+    slider.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      dragging = true;
+      moved = false;
+      startX = e.clientX;
+    });
+    slider.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      // Only a real drag captures the pointer; a plain click still reaches its button.
+      if (!moved && Math.abs(e.clientX - startX) < 6) return;
+      if (!moved) slider.setPointerCapture(e.pointerId);
+      moved = true;
+      slider.classList.add("is-dragging");
+      thumb.style.transform = `translateX(${stopAt(e.clientX).x}px)`;
+    });
+    const end = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      slider.classList.remove("is-dragging");
+      thumb.style.transform = "";
+      if (moved) setStyle(ORDER[stopAt(e.clientX).index]);
+    };
+    slider.addEventListener("pointerup", end);
+    slider.addEventListener("pointercancel", end);
+  });
+
+  sync();
+</script>
