@@ -7,6 +7,10 @@ import SiteFooter from "../../components/hub/SiteFooter.astro";
 import { isWeb, productHref, products, readableOn, withUtm, type HubProduct } from "../../lib/products";
 import { skinFor } from "../../lib/skins";
 import { withBase } from "../../lib/url";
+import ChannelCard from "../../components/hub/ChannelCard.astro";
+import VideoCard from "../../components/hub/VideoCard.astro";
+import VideoScript from "../../components/hub/VideoScript.astro";
+import { channelFor, videosFor } from "../../lib/youtube";
 
 export function getStaticPaths() {
   return products.map((p) => ({ params: { id: p.id }, props: { product: p } }));
@@ -28,6 +32,8 @@ const vars = [
 const external = isWeb(p.ctaUrl) ? { target: "_blank", rel: "noopener noreferrer" } : {};
 const others = products.filter((o) => o.id !== p.id);
 const story = p.story;
+const channel = channelFor(p);
+const videos = await videosFor(p);
 ---
 
 <Layout title={`${p.name} — ${p.tagline} · Itai Lior`} description={p.consumerDescription}>
@@ -102,6 +108,28 @@ const story = p.story;
       )
     }
 
+    <!-- videos from the product's YouTube channel (matched by name at build time) -->
+    <section class="mt-16" aria-labelledby="watch">
+      <h2 id="watch" class="font-display text-4xl tracking-wide sm:text-5xl">{videos.length ? "Watch it in action" : "Videos"}</h2>
+      {
+        videos.length > 0 && (
+          <ul class="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            {videos.map((v) => (
+              <li>
+                <VideoCard video={v} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <div class="mt-8">
+        <ChannelCard
+          channel={channel}
+          note={videos.length ? `More on ${channel.name}: ${channel.blurb.charAt(0).toLowerCase()}${channel.blurb.slice(1)}` : p.category === "game" ? `The ${p.name} series and dev vlogs are coming to ${channel.name}. Subscribe to catch episode one.` : `Videos of ${p.name} will be posted on ${channel.name}. Subscribe to catch them first.`}
+        />
+      </div>
+    </section>
+
     <!-- engineering -->
     <section class="mt-16 border-t border-cream/15 pt-12" aria-labelledby="hood">
       <p class="eyebrow">⚙️ Under the hood</p>
@@ -141,4 +169,5 @@ const story = p.story;
     </section>
   </main>
   <SiteFooter />
+  <VideoScript />
 </Layout>

@@ -27,13 +27,27 @@ npm run art       # regenerate the sketch illustrations in public/images/
 
 | Route | File | What |
 |---|---|---|
-| `/` | `pages/index.astro` | **Products hub**: intro, stats strip, filter chips (All / Web / Extensions / Mobile / Games), bento of product cards, jam-builds list |
-| `/products/<id>/` | `pages/products/[id].astro` | One page per manifest product: hero card, who it's for, the problem, how it works (steps), what you get, under the hood, more products |
+| `/` | `pages/index.astro` | **Products hub**: intro, stats strip, filter chips (All / Web / Extensions / Mobile / Games), bento of product cards, latest 3 videos + channel links, jam-builds list |
+| `/products/<id>/` | `pages/products/[id].astro` | One page per manifest product: hero card, who it's for, the problem, how it works (steps), what you get, videos, under the hood, more products |
+| `/videos/` | `pages/videos.astro` | The two studio YouTube channels with their latest uploads (click-to-play) |
 | `/archive/` | `pages/archive.astro` | Game jams + session tapes |
 | `/about/` | `pages/about.astro` | **About & Jazz (the maker)**: CV hero, "How my products are built" showcase (user/engineering flip), experience, services, creative lab, drop-in widget, hire (`#hire`) |
 | 404 | `pages/404.astro` | |
 
-The nav (`sections/Nav.astro`) is shared: Products, Archive, the "About & Jazz (the maker)" button and the style slider. Pass `active` to highlight the current page. Hub copy comes from the manifest (`tagline`, `consumerDescription`, `platformLabel`, `story`); the hub's footer line names the instruments from `profile.creative.instruments`.
+The nav (`sections/Nav.astro`) is shared: Products, Videos, Archive, the "About & Jazz (the maker)" button and the style slider. Pass `active` to highlight the current page. Hub copy comes from the manifest (`tagline`, `consumerDescription`, `platformLabel`, `story`); the hub's footer line names the instruments from `profile.creative.instruments`.
+
+## YouTube channels & videos
+
+Two studio channels live in `profile.json` → `channels` (also `contact.youtubeApps` / `contact.youtubeGames`); `contact.youtube` (@itai171) stays the personal music channel.
+
+| id | Channel | For |
+|---|---|---|
+| `apps` | Infilimit Applications (@InfilimitApplications) | apps & extensions: HeatReel, PsychoScanner, future apps |
+| `games` | Infilimit Games (@InfilimitGames) | Bet on Dave series, dev vlogs, future games |
+
+- `src/lib/youtube.ts` fetches each channel's public RSS feed (`feeds/videos.xml?channel_id=…`, latest ~15 uploads) **at build time**, once per build. New uploads appear on the next deploy. A failed fetch only logs a warning; the pages then show the channel card without videos.
+- A product's videos = uploads on its channel (`category: "game"` → games, else apps) whose **title or description** mentions the product's `name`. Put the product name in the video title or description to have it show on that product's page.
+- `hub/VideoCard.astro` is a click-to-play thumbnail (the youtube-nocookie player loads only on click); include `hub/VideoScript.astro` once on any page that uses it. `hub/ChannelCard.astro` is the channel + subscribe block.
 
 ## Layout
 

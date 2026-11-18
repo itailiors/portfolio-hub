@@ -1,0 +1,22 @@
+---
+/** A studio YouTube channel: name, what it's for, subscribe link. */
+import type { Channel } from "../../lib/youtube";
+
+interface Props {
+  channel: Channel;
+  /** Shown when the channel has no matching uploads yet. */
+  note?: string;
+}
+const { channel: c, note } = Astro.props;
+---
+
+<div class="hub-panel flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+  <div class="min-w-0">
+    <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-terra">YouTube · {c.handle}</p>
+    <p class="mt-1 font-display text-3xl leading-none tracking-wide">{c.name}</p>
+    <p class="mt-2 max-w-xl text-cream-muted">{note ?? c.blurb}</p>
+  </div>
+  <a href={`${c.url}?sub_confirmation=1`} target="_blank" rel="noopener noreferrer" class="btn-crimson shrink-0 px-5 py-2.5 text-sm">
+    Subscribe on YouTube ↗
+  </a>
+</div>

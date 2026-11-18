@@ -32,12 +32,13 @@ Everything is drawn with design tokens, type, CSS and inline SVG; no stock image
 | 🎲 | **Bet on Dave** | Physics-driven multiplayer ragdoll game where spectators bet on the outcome | Unity, C#, FishNet |
 | 💡 | [**Idea5**](https://github.com/itailiors/Idea5) | Offline-first PWA for a daily 5-minute idea ritual | React, TypeScript, IndexedDB |
 
-Plus game-jam builds on [itch.io](https://itch.io/profile/ogfenix) and music on [YouTube](https://www.youtube.com/@itai171).
+Watch them on YouTube: [Infilimit Applications](https://www.youtube.com/@InfilimitApplications) (demos and shorts for the apps and extensions) and [Infilimit Games](https://www.youtube.com/@InfilimitGames) (the Bet on Dave series and dev vlogs). Plus game-jam builds on [itch.io](https://itch.io/profile/ogfenix) and music on [YouTube](https://www.youtube.com/@itai171).
 
 ## The pages
 
 - **[Products](https://itailiors.github.io/portfolio-hub/)** (home): stats strip, filters (Web / Extensions / Mobile / Games) and a bento of product cards, each with what it is, a picture and a "How it works" link. Plus a list of jam builds.
 - **Product pages** (`/products/<id>/`): who it's for, the problem it solves, how it works step by step, what you get, and how it's built.
+- **[Videos](https://itailiors.github.io/portfolio-hub/videos/)**: the latest uploads from my two YouTube channels, pulled in automatically on every deploy.
 - **[Archive](https://itailiors.github.io/portfolio-hub/archive/)**: game-jam builds and recorded music sessions.
 - **[About & Jazz](https://itailiors.github.io/portfolio-hub/about/)** (the maker):
   - **How my products are built**: a showcase with a global **✨ User View / ⚙️ Under the Hood** toggle and per-card flip.

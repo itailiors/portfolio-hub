@@ -5,12 +5,13 @@ import { withBase } from "../../lib/url";
 
 /** Which top-level page is active. */
 interface Props {
-  active?: "products" | "archive" | "about";
+  active?: "products" | "videos" | "archive" | "about";
 }
 const { active } = Astro.props;
 
 const links = [
   { id: "products", href: withBase("/"), label: "Products" },
+  { id: "videos", href: withBase("/videos/"), label: "Videos" },
   { id: "archive", href: withBase("/archive/"), label: "Archive" },
 ];
 const aboutHref = withBase("/about/");
@@ -24,7 +25,7 @@ const aboutHref = withBase("/about/");
     </a>
 
     <div class="order-last flex w-full items-center justify-between gap-4 sm:order-none sm:w-auto sm:justify-end sm:gap-6">
-      <ul class="flex items-center gap-5 text-sm font-semibold">
+      <ul class="flex items-center gap-4 text-sm font-semibold sm:gap-5">
         {
           links.map((l) => (
             <li>

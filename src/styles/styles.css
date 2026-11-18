@@ -578,3 +578,7 @@ html[data-wipe="right"]::view-transition-new(root) { animation: style-wipe-right
 html[data-wipe="left"]::view-transition-new(root) { animation: style-wipe-left 0.7s cubic-bezier(0.65, 0, 0.35, 1); }
 @keyframes style-wipe-right { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes style-wipe-left { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+
+/* ── 7. Video cards (click-to-play YouTube) ──────────────────────────────── */
+.hub-video .hub-media { aspect-ratio: 16 / 9; padding: 0; }
+.hub-media iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }

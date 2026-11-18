@@ -10,6 +10,8 @@
     "linkedin": "https://www.linkedin.com/in/itailior-090a44253",
     "itch": "https://itch.io/profile/ogfenix",
     "youtube": "https://www.youtube.com/@itai171",
+    "youtubeApps": "https://www.youtube.com/@InfilimitApplications",
+    "youtubeGames": "https://www.youtube.com/@InfilimitGames",
     "instagram": "https://www.instagram.com/it.is.lio/",
     "calendly": ""
   },
@@ -194,5 +196,25 @@
         "note": "KPop Demon Hunters cover"
       }
     ]
-  }
+  },
+  "channels": [
+    {
+      "id": "apps",
+      "name": "Infilimit Applications",
+      "handle": "@InfilimitApplications",
+      "url": "https://www.youtube.com/@InfilimitApplications",
+      "channelId": "UC9RqzVvnU7Fn1A-wkckn5Tw",
+      "covers": "apps",
+      "blurb": "Demos, walkthroughs and shorts for my apps and extensions: HeatReel, PsychoScanner and whatever ships next."
+    },
+    {
+      "id": "games",
+      "name": "Infilimit Games",
+      "handle": "@InfilimitGames",
+      "url": "https://www.youtube.com/@InfilimitGames",
+      "channelId": "UC_uh7W3__GiB6OdvWazt8ag",
+      "covers": "games",
+      "blurb": "The Bet on Dave series and dev vlogs: how the game gets built, broken and rebuilt. Future games land here too."
+    }
+  ]
 }
