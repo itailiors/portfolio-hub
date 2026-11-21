@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-18",
+  "updatedAt": "2026-11-21",
   "creator": {
     "name": "Itai Lior",
     "handle": "itailiors",
@@ -258,6 +258,55 @@
         ],
         "architectureHighlight": "Drift-free timer modeled as accumulated time plus performance.now() deltas, so it survives throttled background tabs; debounced autosave with stale-draft recovery; voice clips stored as Blobs in Dexie with per-browser MIME detection; and zip backup/restore plus .ics reminder export — all on-device, with no server.",
         "metrics": "Offline-first PWA • Zero backend • Unit-tested timer, streak & backup logic"
+      }
+    },
+    {
+      "id": "explorer2",
+      "name": "Explorer2",
+      "tagline": "File Explorer with tabs, split view and Total Commander keys.",
+      "category": "live-product",
+      "statusBadge": "Live · Windows",
+      "platformLabel": "Windows Desktop App",
+      "platforms": [
+        "windows"
+      ],
+      "icon": "🗂️",
+      "accentColor": "#0F6CBD",
+      "consumerDescription": "A Windows 11 File Explorer replacement with tabs, a side-by-side split view and Total Commander style keyboard control, built on the native Windows shell so context menus, thumbnails, drag & drop, previews and sharing all work exactly like File Explorer. Built together with my dad.",
+      "story": {
+        "audience": "Windows power users who move a lot of files around and miss the two-pane speed of Total Commander, without giving up the native Explorer they know.",
+        "problem": "Windows File Explorer has no split view and little keyboard control, while classic two-pane file managers re-implement the shell and lose native context menus, previews and sharing.",
+        "steps": [
+          "Download the standalone Explorer2.exe from the latest release and run it. It lives in the system tray.",
+          "Open tabs with Ctrl+T, or press Ctrl+Shift+S to split the window into two panes.",
+          "Mark files with Space, then copy with F5, move with F6 or peek inside with the F3 quick viewer.",
+          "Optionally make it your default, so folders and Win+E open in Explorer2."
+        ],
+        "features": [
+          "Real Windows shell views in every tab",
+          "Split mode with Total Commander style function keys",
+          "F3 quick viewer for PDF, Office, images, text and hex",
+          "Preview pane, native Share sheet, light and dark mode",
+          "Tray app with optional Win+E replacement"
+        ]
+      },
+      "ctaText": "Download for Windows",
+      "ctaUrl": "https://github.com/savilior/ExplorerSplit/releases/latest",
+      "repoUrl": "https://github.com/savilior/ExplorerSplit",
+      "utmTag": "explorer2",
+      "media": {
+        "type": "placeholder",
+        "src": ""
+      },
+      "engineeringSpecs": {
+        "stack": [
+          "C#",
+          ".NET 8",
+          "Windows Shell COM Interop",
+          "Win32"
+        ],
+        "architectureHighlight": "Hosts the native Windows shell view (IExplorerBrowser) inside each tab instead of re-implementing a file list, then layers a Total Commander style command system on top: marking, F5/F6 copy and move through Windows' own progress, conflict and undo handling, and registered preview handlers for the F3 quick viewer.",
+        "metrics": "v1.0.0 released • Co-built with my dad • MIT licensed"
       }
     }
   ]

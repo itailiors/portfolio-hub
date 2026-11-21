@@ -65,13 +65,14 @@ export function withUtm(url: string, campaign: string, medium = "showcase"): str
 }
 
 /** Filter group a product belongs to on the hub. */
-export type HubFilter = "web" | "extension" | "mobile" | "game";
+export type HubFilter = "web" | "extension" | "desktop" | "mobile" | "game";
 
 export function filtersFor(p: EcosystemProduct): HubFilter[] {
   const out = new Set<HubFilter>();
   if (p.category === "game") out.add("game");
   for (const pl of p.platforms ?? []) {
     if (pl === "chrome") out.add("extension");
+    if (pl === "windows" && p.category !== "game") out.add("desktop");
     if (pl === "web") out.add("web");
     if (pl === "ios" || pl === "android" || pl === "mobile") out.add("mobile");
   }
@@ -82,6 +83,7 @@ export const HUB_FILTERS: { id: "all" | HubFilter; label: string }[] = [
   { id: "all", label: "All" },
   { id: "web", label: "Web" },
   { id: "extension", label: "Extensions" },
+  { id: "desktop", label: "Desktop" },
   { id: "mobile", label: "Mobile" },
   { id: "game", label: "Games" },
 ];

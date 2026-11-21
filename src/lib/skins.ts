@@ -49,6 +49,12 @@ const SKINS: Record<string, ProductSkin> = {
     layout: "split-media-first",
     span: "xl:col-span-5",
   },
+  explorer2: {
+    sketch: { bg: "#dbe7f2", ink: "#1e2430" },
+    mat: "steel",
+    layout: "split",
+    span: "xl:col-span-12",
+  },
 };
 
 const FALLBACK: ProductSkin = {
