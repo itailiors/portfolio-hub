@@ -272,6 +272,7 @@
       ],
       "icon": "🗂️",
       "accentColor": "#0F6CBD",
+      "imageUrl": "/images/explorer2.jpg",
       "consumerDescription": "A Windows 11 File Explorer replacement with tabs, a side-by-side split view and Total Commander style keyboard control, built on the native Windows shell so context menus, thumbnails, drag & drop, previews and sharing all work exactly like File Explorer. Built together with my dad.",
       "story": {
         "audience": "Windows power users who move a lot of files around and miss the two-pane speed of Total Commander, without giving up the native Explorer they know.",
