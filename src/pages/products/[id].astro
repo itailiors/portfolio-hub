@@ -34,9 +34,30 @@ const others = products.filter((o) => o.id !== p.id);
 const story = p.story;
 const channel = channelFor(p);
 const videos = await videosFor(p);
+const appType = p.platforms?.some((pl) => ["ios", "android", "mobile"].includes(pl))
+  ? "MobileApplication"
+  : p.platforms?.includes("web")
+    ? "WebApplication"
+    : "SoftwareApplication";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": appType,
+  name: p.name,
+  description: p.consumerDescription,
+  url: new URL(Astro.url.pathname, Astro.site).href,
+  ...(isWeb(p.ctaUrl) ? { installUrl: p.ctaUrl } : {}),
+  ...(p.platformLabel ? { operatingSystem: p.platformLabel } : {}),
+  applicationCategory: "UtilitiesApplication",
+  author: { "@type": "Person", name: "Itai Lior" },
+};
 ---
 
-<Layout title={`${p.name} — ${p.tagline} · Itai Lior`} description={p.consumerDescription}>
+<Layout
+  title={`${p.name} — ${p.tagline} · Itai Lior`}
+  description={p.consumerDescription}
+  image={p.image}
+  jsonLd={jsonLd}
+>
   <Nav />
   <main class="mx-auto max-w-6xl px-4 pt-32 sm:px-6 sm:pt-28">
     <a href={withBase("/")} class="inline-flex items-center gap-2 text-sm font-semibold text-cream-muted hover:text-cream">← All products</a>

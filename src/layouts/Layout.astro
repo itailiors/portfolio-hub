@@ -7,15 +7,22 @@ interface Props {
   description?: string;
   /** Keep 404 and other utility pages out of search results. */
   noindex?: boolean;
+  /** Share image (jpg/png only). Root-relative with the base path already applied, or absolute. */
+  image?: string;
+  /** Structured data (schema.org) rendered as JSON-LD. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
-  title = "Itai Lior // Software & Jazz",
+  title = "Itai Lior // Software & Jazz: apps, Chrome extensions and games",
   description = "Apps, a Chrome extension and games by Itai Lior — each one explained, all built by one maker. Plus remote backend, MVP and browser-extension contracts.",
   noindex = false,
+  image,
+  jsonLd,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const imageUrl = image && /\.(jpe?g|png|webp)$/i.test(image) ? new URL(image, Astro.site).href : undefined;
 ---
 
 <!doctype html>
@@ -45,9 +52,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Itai Lior // Software & Jazz" />
-    <meta name="twitter:card" content="summary" />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    <meta name="twitter:card" content={imageUrl ? "summary_large_image" : "summary"} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
