@@ -1,0 +1,13 @@
+<!-- Moved from the root CLAUDE.md. The root CLAUDE.md tells Claude when to read this file. -->
+
+## Product images ("gallery frame")
+
+Current lineup, in display order: `the-woodshed` (main highlight), `heatreel`, `psychoscanner`, `bet-on-dave`, `idea5`, `explorer2`.
+- `explorer2.jpg` is a Gemini-generated raster (via `antigravity_image`) drawn to match the sketch style, not one of the `npm run art` scripts. It has no `-color` Sketchbook variant, so the Sketch style shows it as-is.
+
+- Images live in `public/images/` at each product's `imageUrl`: `woodshed.jpg` and `heatreel.png` (real screenshots), `psychoscanner.svg`, `idea5.svg` and `dave.svg` (generated sketch illustrations, see below). 16:9 crops look best; they're shown `object-cover`, centered. Raster screenshots are dimmed slightly (`brightness(0.86)`) until the card is hovered so bright UIs don't glare on the night canvas; `.svg` illustrations are exempt.
+- **Sketch illustrations** are generated, not hand-edited: `npm run art` runs `scripts/art/psychoscanner.mjs` (over-the-shoulder phone scanning a bubble sheet, score 142/150), `scripts/art/idea5.mjs` (thinker on a flying triangular pencil past the Great Wall) and `scripts/art/dave.mjs` (ragdolls on a circus high wire, crowd waving betting slips).
+- **Sketchbook variants**: `write(name, svg, { marker: { hue } })` also writes `<name>-color.svg`, a "marker on paper" version (night backdrop → paper tinted by `hue`, cream pencil lines → ink, marker colors kept). `lib/products.ts` picks up any `<image>-color.<ext>` next to a product image and the hub shows it only in the Sketchbook style (`.img-sketch` / `.img-default`). Shared helpers in `scripts/art/sketch.mjs` give the pencil look: every layer is drawn twice through `feTurbulence` + `feDisplacementMap` filters (wobble + faint offset re-trace) with hatching patterns for shading. Output is deterministic (seeded PRNG). Edit the script, rerun `npm run art`, rebuild.
+- The card always renders the product's SVG art (`JazzPosterArt` card variant) as the base layer. The screenshot is layered on top and fades in only after it decodes. A 404 or broken file triggers `onError` (or is detected after hydration via `img.complete && naturalWidth === 0`), and the art stays visible, so layout never shifts.
+- `lib/products.ts` also drops local `imageUrl`s whose file doesn't exist at build time, so missing screenshots aren't requested at all. Rebuild after adding images.
+- Art motifs per product live in `MOTIF_BY_PRODUCT` in `JazzPosterArt.tsx`: `keys` (ivory & cobalt piano keys + audio pulses, The Woodshed), `slant` (chaotic crimson/orange slants, Bet on Dave), default `bauhaus` (half disc + equalizer bars).

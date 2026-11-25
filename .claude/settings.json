@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-state.mjs\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 180,
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/verify-on-stop.mjs\" . astro,ts,tsx \"npm run check\""
+          }
+        ]
+      }
+    ]
+  }
+}
