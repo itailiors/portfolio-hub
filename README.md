@@ -26,7 +26,7 @@ Everything is drawn with design tokens, type, CSS and inline SVG; no stock image
 
 | | Product | What it is | Built with |
 |---|---|---|---|
-| 🎹 | [**The Woodshed**](https://itailiors.github.io/TheWoodshed/) | Interactive jazz practice suite: reharmonization dial, MIDI comping coach, improv heatmap | React, Web Audio, Web Workers, Web MIDI |
+| 🎹 | [**The Woodshed**](https://itailiors.github.io/reharm-lab/) | Interactive jazz practice suite: reharmonization dial, MIDI comping coach, improv heatmap | React, Web Audio, Web Workers, Web MIDI |
 | 🔥 | [**HeatReel**](https://chromewebstore.google.com/detail/pljkjcipfkonmhnhfkfjbhjjkbhpfihf) | Chrome extension that turns YouTube's "most replayed" heatmap into a highlight reel | WXT, React, TypeScript |
 | 📝 | **PsychoScanner** | Phone-camera OMR grader for Israeli psychometric exam answer sheets (beta) | React Native (Expo), FastAPI, OpenCV |
 | 🎲 | **Bet on Dave** | Physics-driven multiplayer ragdoll game where spectators bet on the outcome | Unity, C#, FishNet |
