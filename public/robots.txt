@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://itailiors.github.io/portfolio-hub/sitemap.xml
